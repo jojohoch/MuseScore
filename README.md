@@ -1,3 +1,17 @@
+# Octet
+
+Octet ist eine veränderte Fassung von [MuseScore Studio](https://musescore.org) 4.7.5 mit **acht statt vier Stimmen pro Notensystem**. Es ist kein Produkt von MuseScore Limited.
+
+- Partituren mit höchstens vier Stimmen werden genau so gespeichert wie von MuseScore Studio und bleiben dort lesbar.
+- Partituren mit Stimme 5–8 tragen die Dateiversion 99.70. MuseScore Studio lehnt sie mit einem Hinweis ab, statt sie falsch zu lesen. Austausch mit anderen Programmen über MusicXML oder PDF.
+- Octet installiert sich neben MuseScore Studio und hat eigene Einstellungen. Muse Sounds sowie Speichern und Veröffentlichen auf MuseScore.com gibt es nicht.
+
+Downloads für Windows (Installer und portable Version) und Linux (AppImage) stehen unter [Releases](https://github.com/jojohoch/MuseScore/releases). Die Änderungen gegenüber MuseScore Studio sind die Commits auf dem Zweig `eight-voices` ab `v4.7.5`. Lizenz wie MuseScore Studio: GNU GPL Version 3.
+
+Darunter folgt die unveränderte Beschreibung von MuseScore Studio.
+
+---
+
 # ![MuseScore Studio](share/icons/musescore_logo_full.png)
 
 Music notation and composition software
