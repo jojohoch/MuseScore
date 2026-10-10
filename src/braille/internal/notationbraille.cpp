@@ -829,7 +829,7 @@ bool NotationBraille::setVoice(bool new_voice)
                 voices++;
             }
         }
-        if (voices >= 3) {
+        if (voices >= static_cast<int>(VOICES) - 1) {
             return false;
         }
 

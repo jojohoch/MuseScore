@@ -77,7 +77,7 @@ public:
 
 private:
 
-    String m_channelNames[4];
+    String m_channelNames[VOICES];
     std::vector<ChannelActions> m_channelActions;
     SwingParameters m_swingParameters;
     bool m_setAeolusStops = false;

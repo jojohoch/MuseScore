@@ -139,7 +139,7 @@ TEST_F(Engraving_InstrumentChangeTests, testCopy)
     s = m->first(SegmentType::ChordRest);
     InstrumentChange* nic = new InstrumentChange(*ic);
     nic->setParent(s);
-    nic->setTrack(4);
+    nic->setTrack(staff2track(1));
     score->undoAddElement(nic);
     score->doLayout();
     test_post(score, u"copy");

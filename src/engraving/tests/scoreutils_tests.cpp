@@ -54,15 +54,17 @@ TEST_F(Engraving_ScoreUtilsTests, StaffIdxSetFromRange)
     score->appendStaff(Factory::createStaff(parts.at(2)));
     score->appendStaff(Factory::createStaff(parts.at(2)));
 
-    // [WHEN] Request staves from track 4 to 19
-    std::set<staff_idx_t> actualStaffIdxSet = score->staffIdxSetFromRange(4, 19);
+    // [WHEN] Request staves from the first track of staff 1 to the last track of staff 4
+    const track_idx_t trackFrom = staff2track(1);
+    const track_idx_t trackTo = staff2track(4, VOICES - 1);
+    std::set<staff_idx_t> actualStaffIdxSet = score->staffIdxSetFromRange(trackFrom, trackTo);
 
     // [THEN] The staves have been filtered by the track range
     std::set<staff_idx_t> expectedStaffIdxSet = { 0, 1, 2, 3, 4, 5, 6 };
     EXPECT_EQ(actualStaffIdxSet, expectedStaffIdxSet);
 
-    // [WHEN] Request staves from track 4 to 19, and also filter out the linked staves
-    actualStaffIdxSet = score->staffIdxSetFromRange(4, 19, [](const Staff& staff) {
+    // [WHEN] Request the same staves, and also filter out the linked staves
+    actualStaffIdxSet = score->staffIdxSetFromRange(trackFrom, trackTo, [](const Staff& staff) {
         return staff.isPrimaryStaff();
     });
 
@@ -71,7 +73,7 @@ TEST_F(Engraving_ScoreUtilsTests, StaffIdxSetFromRange)
     EXPECT_EQ(actualStaffIdxSet, expectedStaffIdxSet);
 
     // [WHEN] Request for more staves than exist
-    actualStaffIdxSet = score->staffIdxSetFromRange(4, 9999);
+    actualStaffIdxSet = score->staffIdxSetFromRange(trackFrom, 9999);
 
     // [THEN] The set is correct
     expectedStaffIdxSet = { 0, 1, 2, 3, 4, 5, 6 };

@@ -481,11 +481,11 @@ bool Staff::canDisableVoice() const
 void Staff::updateVisibilityVoices(const Staff* masterStaff, const TracksMap& tracks)
 {
     if (tracks.empty()) {
-        m_visibilityVoices = { true, true, true, true };
+        m_visibilityVoices.fill(true);
         return;
     }
 
-    std::array<bool, VOICES> voices{ false, false, false, false };
+    std::array<bool, VOICES> voices {};
 
     staff_idx_t masterStaffIdx = masterStaff->idx();
     staff_idx_t staffIdx = idx();

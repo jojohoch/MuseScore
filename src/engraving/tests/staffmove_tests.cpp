@@ -53,7 +53,7 @@ TEST_F(Engraving_StaffMoveTests, hiddenStaff)
     EXPECT_TRUE(m);
     Segment* s = m->first(SegmentType::ChordRest);
     EXPECT_TRUE(s);
-    Chord* c1 = toChord(s->element(4));
+    Chord* c1 = toChord(s->element(staff2track(1)));
     EXPECT_TRUE(c1);
     Staff* staff = score->staff(0);
 
@@ -98,7 +98,7 @@ TEST_F(Engraving_StaffMoveTests, linkedStaff)
     EXPECT_TRUE(s);
     Chord* c1 = toChord(s->element(0));
     EXPECT_TRUE(c1);
-    Chord* c2 = toChord(s->element(8));
+    Chord* c2 = toChord(s->element(staff2track(2)));
     EXPECT_TRUE(c2);
 
     score->startCmd(TranslatableString::untranslatable("Engraving staff move tests"));

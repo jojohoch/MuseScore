@@ -6384,7 +6384,7 @@ void Score::undoExchangeVoice(Measure* measure, voice_idx_t srcVoice, voice_idx_
                         if (staffTrack <= testTrack && testTrack < staffTrack + VOICES && muse::contains(dstTrackList, testTrack)) {
                             hasVoice = true;
                             // voice is simply exchangeable now (deal directly)
-                            undo(new ExchangeVoice(measure2, srcTrack2, testTrack, staffTrack / 4));
+                            undo(new ExchangeVoice(measure2, srcTrack2, testTrack, track2staff(staffTrack)));
                         }
                     }
 

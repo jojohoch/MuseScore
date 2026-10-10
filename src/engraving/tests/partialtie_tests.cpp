@@ -466,8 +466,8 @@ TEST_F(Engraving_PartialTieTests, copyPartialTiesAndSlurs)
     mimeData->setData(mimeType, ba);
 
     // Paste staff 1, m1
-    EXPECT_TRUE(m1->first(SegmentType::ChordRest)->element(4));
-    score->select(m1->first(SegmentType::ChordRest)->element(4));
+    EXPECT_TRUE(m1->first(SegmentType::ChordRest)->element(staff2track(1)));
+    score->select(m1->first(SegmentType::ChordRest)->element(staff2track(1)));
     score->startCmd(TranslatableString::untranslatable("Partial tie tests"));
     QMimeDataAdapter ma(mimeData);
     score->cmdPaste(&ma, 0);
@@ -497,8 +497,8 @@ TEST_F(Engraving_PartialTieTests, copyPartialTiesAndSlurs)
                                             PARTIALTIE_DATA_DIR + String(u"copyPastePartials03-ref.mscx")));
 
     // Paste staff 1, m4
-    EXPECT_TRUE(m4->first(SegmentType::ChordRest)->element(4));
-    score->select(m4->first(SegmentType::ChordRest)->element(4));
+    EXPECT_TRUE(m4->first(SegmentType::ChordRest)->element(staff2track(1)));
+    score->select(m4->first(SegmentType::ChordRest)->element(staff2track(1)));
     score->startCmd(TranslatableString::untranslatable("Partial tie tests"));
     score->cmdPaste(&ma, 0);
     score->endCmd();

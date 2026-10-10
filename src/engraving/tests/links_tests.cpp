@@ -124,10 +124,10 @@ TEST_F(Engraving_LinksTests, test3LinkedSameScore_99796)
     e = s->element(0);
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 3);
-    e = s->element(4);
+    e = s->element(staff2track(1));
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 3);
-    e = s->element(8);
+    e = s->element(staff2track(2));
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 3);
 
@@ -141,7 +141,7 @@ TEST_F(Engraving_LinksTests, test3LinkedSameScore_99796)
     e = s->element(0);
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 2);
-    e = s->element(4);
+    e = s->element(staff2track(1));
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 2);
 
@@ -152,10 +152,10 @@ TEST_F(Engraving_LinksTests, test3LinkedSameScore_99796)
     e = s->element(0);
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 3);
-    e = s->element(4);
+    e = s->element(staff2track(1));
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 3);
-    e = s->element(8);
+    e = s->element(staff2track(2));
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 3);
 
@@ -165,7 +165,7 @@ TEST_F(Engraving_LinksTests, test3LinkedSameScore_99796)
     e = s->element(0);
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 2);
-    e = s->element(4);
+    e = s->element(staff2track(1));
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 2);
 }
@@ -232,7 +232,7 @@ TEST_F(Engraving_LinksTests, test3LinkedParts_99796)
     e = s->element(0);
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 3);
-    e = s->element(4);
+    e = s->element(staff2track(1));
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 3);
 
@@ -246,7 +246,7 @@ TEST_F(Engraving_LinksTests, test3LinkedParts_99796)
     e = s->element(0);
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 2);
-    e = s->element(4);
+    e = s->element(staff2track(1));
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 2);
 }
@@ -299,7 +299,7 @@ TEST_F(Engraving_LinksTests, DISABLED_test4LinkedParts_94911)
     e = s->element(0);
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 2);
-    e = s->element(4);
+    e = s->element(staff2track(1));
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 2);
 
@@ -325,7 +325,7 @@ TEST_F(Engraving_LinksTests, DISABLED_test4LinkedParts_94911)
     e = s->element(0);
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 4);
-    e = s->element(4);
+    e = s->element(staff2track(1));
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 4);
     EXPECT_TRUE(score->excerpts().size() == 1);
@@ -359,7 +359,7 @@ TEST_F(Engraving_LinksTests, DISABLED_test4LinkedParts_94911)
     e = s->element(0);
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 4);
-    e = s->element(4);
+    e = s->element(staff2track(1));
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 4);
     EXPECT_TRUE(score->excerpts().size() == 1);
@@ -444,7 +444,7 @@ TEST_F(Engraving_LinksTests, test5LinkedParts_94911)
     e = s->element(0);
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 3);
-    e = s->element(4);
+    e = s->element(staff2track(1));
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 3);
     EXPECT_TRUE(score->excerpts().size() == 1);
@@ -467,7 +467,7 @@ TEST_F(Engraving_LinksTests, test5LinkedParts_94911)
     e = s->element(0);
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 3);
-    e = s->element(4);
+    e = s->element(staff2track(1));
     EXPECT_TRUE(e->isRest());
     EXPECT_TRUE(e->links()->size() == 3);
     EXPECT_TRUE(score->excerpts().size() == 1);

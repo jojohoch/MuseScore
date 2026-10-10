@@ -620,16 +620,9 @@ muse::Ret ConverterController::saveRegion(INotationProjectPtr project, const Con
 
     if (!region.val.voiceIdxSet.empty()) {
         using VoiceFilterType = mu::engraving::VoicesSelectionFilterTypes;
-        const std::vector<std::pair<size_t, mu::engraving::VoicesSelectionFilterTypes> > VOICE_FILTERS {
-            { 0, VoiceFilterType::FIRST_VOICE },
-            { 1, VoiceFilterType::SECOND_VOICE },
-            { 2, VoiceFilterType::THIRD_VOICE },
-            { 3, VoiceFilterType::FOURTH_VOICE },
-        };
-
-        for (const auto& pair : VOICE_FILTERS) {
-            const bool voiceAccepted = muse::contains(region.val.voiceIdxSet, pair.first);
-            interaction->selectionFilter()->setSelectionTypeFiltered(pair.second, voiceAccepted);
+        for (size_t voiceIdx = 0; voiceIdx < mu::engraving::NUM_VOICES_SELECTION_FILTER_TYPES; ++voiceIdx) {
+            const bool voiceAccepted = muse::contains(region.val.voiceIdxSet, voiceIdx);
+            interaction->selectionFilter()->setSelectionTypeFiltered(static_cast<VoiceFilterType>(1u << voiceIdx), voiceAccepted);
         }
     }
 

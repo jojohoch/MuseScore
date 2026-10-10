@@ -154,7 +154,7 @@ TEST_F(Engraving_ParenthesesTests, addParenLinkedStaff)
     // Find notes
     Measure* m1 = score->firstMeasure();
     Chord* singleNoteChordStd = findChordInMeasure(m1, Fraction(0, 1), 0);
-    Chord* singleNoteChordTab = findChordInMeasure(m1, Fraction(0, 1), 4);
+    Chord* singleNoteChordTab = findChordInMeasure(m1, Fraction(0, 1), staff2track(1));
     Note* noteStd = singleNoteChordStd->notes().front();
     EXPECT_TRUE(noteStd);
     Note* noteTab = singleNoteChordTab->notes().front();
@@ -238,7 +238,7 @@ TEST_F(Engraving_ParenthesesTests, addParensManyNotesLinkedStaff)
     Measure* m2 = score->firstMeasure()->nextMeasure();
     Chord* chordStd = findChordInMeasure(m2, Fraction(1, 1), 0);
     checkChordHasNoParens(chordStd);
-    Chord* chordTab = findChordInMeasure(m2, Fraction(1, 1), 4);
+    Chord* chordTab = findChordInMeasure(m2, Fraction(1, 1), staff2track(1));
     checkChordHasNoParens(chordTab);
 
     // Toggle parentheses
@@ -304,7 +304,7 @@ TEST_F(Engraving_ParenthesesTests, breakParenGroupLinkedStaff)
     Measure* m2 = score->firstMeasure()->nextMeasure();
     Chord* chordStd = findChordInMeasure(m2, Fraction(1, 1), 0);
     checkChordHasNoParens(chordStd);
-    Chord* chordTab = findChordInMeasure(m2, Fraction(1, 1), 4);
+    Chord* chordTab = findChordInMeasure(m2, Fraction(1, 1), staff2track(1));
     checkChordHasNoParens(chordTab);
 
     // Toggle parentheses for standard staff

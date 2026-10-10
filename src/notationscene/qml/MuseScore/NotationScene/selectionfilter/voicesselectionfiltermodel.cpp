@@ -44,19 +44,14 @@ QString VoicesSelectionFilterModel::titleForType(const SelectionFilterTypesVaria
 {
     const VoicesSelectionFilterTypes type = std::get<VoicesSelectionFilterTypes>(variant);
 
-    switch (type) {
-    case VoicesSelectionFilterTypes::ALL:
+    if (type == VoicesSelectionFilterTypes::ALL) {
         return muse::qtrc("notation", "All");
-    case VoicesSelectionFilterTypes::FIRST_VOICE:
-        return muse::qtrc("notation", "Voice %1").arg(1);
-    case VoicesSelectionFilterTypes::SECOND_VOICE:
-        return muse::qtrc("notation", "Voice %1").arg(2);
-    case VoicesSelectionFilterTypes::THIRD_VOICE:
-        return muse::qtrc("notation", "Voice %1").arg(3);
-    case VoicesSelectionFilterTypes::FOURTH_VOICE:
-        return muse::qtrc("notation", "Voice %1").arg(4);
-    case VoicesSelectionFilterTypes::NONE:
-        break;
+    }
+
+    for (size_t i = 0; i < NUM_VOICES_SELECTION_FILTER_TYPES; i++) {
+        if (type == static_cast<VoicesSelectionFilterTypes>(1 << i)) {
+            return muse::qtrc("notation", "Voice %1").arg(i + 1);
+        }
     }
 
     return {};

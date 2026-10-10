@@ -22,6 +22,7 @@
 
 #pragma once
 
+#include <array>
 #include <map>
 #include <vector>
 
@@ -307,8 +308,8 @@ private:
     std::map<int, SwingParameters> m_swingMap;
     std::map<int, CapoParams> m_capoMap;
     std::map<int, int> m_pitchOffsetMap;
-    bool m_playbackVoice[VOICES] { true, true, true, true };
-    std::array<bool, VOICES> m_visibilityVoices { true, true, true, true };
+    std::array<bool, VOICES> m_playbackVoice = [] { std::array<bool, VOICES> a; a.fill(true); return a; }();
+    std::array<bool, VOICES> m_visibilityVoices = [] { std::array<bool, VOICES> a; a.fill(true); return a; }();
 
     bool m_reflectTranspositionInLinkedTab = true;
 

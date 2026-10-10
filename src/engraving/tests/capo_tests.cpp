@@ -58,7 +58,7 @@ TEST_F(Engraving_CapoTests, modeChange)
     auto chordStd = chRestSeg->element(0);
     EXPECT_TRUE(chordStd->isChord());
 
-    auto chordTab = chRestSeg->element(4);
+    auto chordTab = chRestSeg->element(staff2track(1));
     EXPECT_TRUE(chordTab->isChord());
 
     Staff* staffStd = chordStd->staff();
@@ -131,13 +131,13 @@ TEST_F(Engraving_CapoTests, addDelete)
     auto chordStd1 = chRestSeg1->element(0);
     EXPECT_TRUE(chordStd1->isChord());
 
-    auto chordTab1 = chRestSeg1->element(4);
+    auto chordTab1 = chRestSeg1->element(staff2track(1));
     EXPECT_TRUE(chordTab1->isChord());
 
     auto chordStd2 = chRestSeg2->element(0);
     EXPECT_TRUE(chordStd1->isChord());
 
-    auto chordTab2 = chRestSeg2->element(4);
+    auto chordTab2 = chRestSeg2->element(staff2track(1));
     EXPECT_TRUE(chordTab1->isChord());
 
     Staff* staffStd = chordStd1->staff();
@@ -338,7 +338,7 @@ TEST_F(Engraving_CapoTests, ignoredString)
     auto chordStd = chRestSeg->element(0);
     EXPECT_TRUE(chordStd->isChord());
 
-    auto chordTab = chRestSeg->element(4);
+    auto chordTab = chRestSeg->element(staff2track(1));
     EXPECT_TRUE(chordTab->isChord());
 
     Staff* staffStd = chordStd->staff();
@@ -421,7 +421,7 @@ TEST_F(Engraving_CapoTests, capoSaveOpen)
     auto chordStd = chRestSeg->element(0);
     EXPECT_TRUE(chordStd->isChord());
 
-    auto chordTab = chRestSeg->element(4);
+    auto chordTab = chRestSeg->element(staff2track(1));
     EXPECT_TRUE(chordTab->isChord());
 
     const Note* noteStd = toChord(chordStd)->notes()[0];
@@ -457,7 +457,7 @@ TEST_F(Engraving_CapoTests, undoRedoOnInactiveCapo)
     auto chordStd = chRestSeg->element(0);
     EXPECT_TRUE(chordStd->isChord());
 
-    auto chordTab = chRestSeg->element(4);
+    auto chordTab = chRestSeg->element(staff2track(1));
     EXPECT_TRUE(chordTab->isChord());
 
     Staff* staffStd = chordStd->staff();
@@ -541,13 +541,13 @@ TEST_F(Engraving_CapoTests, deleteWithPreviousCapoIncative) {
     auto chordStd1 = chRestSeg1->element(0);
     EXPECT_TRUE(chordStd1->isChord());
 
-    auto chordTab1 = chRestSeg1->element(4);
+    auto chordTab1 = chRestSeg1->element(staff2track(1));
     EXPECT_TRUE(chordTab1->isChord());
 
     auto chordStd2 = chRestSeg2->element(0);
     EXPECT_TRUE(chordStd1->isChord());
 
-    auto chordTab2 = chRestSeg2->element(4);
+    auto chordTab2 = chRestSeg2->element(staff2track(1));
     EXPECT_TRUE(chordTab1->isChord());
 
     Staff* staffStd = chordStd1->staff();
@@ -671,7 +671,7 @@ TEST_F(Engraving_CapoTests, caopWithBend) {
     auto chordStd1 = chRestSeg1->element(0);
     EXPECT_TRUE(chordStd1->isChord());
 
-    auto chordTab1 = chRestSeg1->element(4);
+    auto chordTab1 = chRestSeg1->element(staff2track(1));
     EXPECT_TRUE(chordTab1->isChord());
 
     const Note* noteStd = toChord(chordStd1)->notes()[0];

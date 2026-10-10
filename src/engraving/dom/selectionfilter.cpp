@@ -287,15 +287,8 @@ bool SelectionFilter::canSelectTuplet(const Tuplet* tuplet, const Fraction& sele
 bool SelectionFilter::canSelectVoice(track_idx_t track) const
 {
     voice_idx_t voice = track2voice(track);
-    switch (voice) {
-    case 0:
-        return isFiltered(VoicesSelectionFilterTypes::FIRST_VOICE);
-    case 1:
-        return isFiltered(VoicesSelectionFilterTypes::SECOND_VOICE);
-    case 2:
-        return isFiltered(VoicesSelectionFilterTypes::THIRD_VOICE);
-    case 3:
-        return isFiltered(VoicesSelectionFilterTypes::FOURTH_VOICE);
+    if (voice >= NUM_VOICES_SELECTION_FILTER_TYPES) {
+        return true;
     }
-    return true;
+    return isFiltered(static_cast<VoicesSelectionFilterTypes>(1u << voice));
 }

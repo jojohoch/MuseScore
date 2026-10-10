@@ -756,7 +756,7 @@ int RestLayout::computeVoiceOffset(const Rest* item, Rest::LayoutData* ldata)
         return 0;
     }
 
-    bool up = item->voice() == 0 || item->voice() == 2;
+    bool up = isUpVoice(item->voice());
     int upSign = up ? -1 : 1;
     int voiceLineOffset = item->style().styleB(Sid::multiVoiceRestTwoSpaceOffset) ? 2 : 1;
 

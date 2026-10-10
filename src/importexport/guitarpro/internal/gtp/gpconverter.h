@@ -4,6 +4,7 @@
 
 #include "modularity/ioc.h"
 #include "engraving/iengravingconfiguration.h"
+#include "engraving/dom/mscore.h"
 #include "engraving/types/fraction.h"
 
 #include "../continiouselementsbuilder.h"
@@ -197,12 +198,10 @@ private:
     // Index is the number of sharps. Using sharp keysigs for signatures with double flats
     std::vector<int> m_sharpsToFlatKeysConverter{ 0, 1, 2, 3, 4, -7, -6, -5, -4, -3, -2, -1 };
 
-    static constexpr mu::engraving::voice_idx_t VOICES = 4;
-
     bool m_showCapo = true; // TODO-gp : settings
 
     bool m_chordExistsInBar = false;
-    std::array<bool, VOICES> m_chordExistsForVoice;
+    std::array<bool, mu::engraving::VOICES> m_chordExistsForVoice;
 
     mu::engraving::BeamMode m_previousBeamMode = mu::engraving::BeamMode::AUTO;
 

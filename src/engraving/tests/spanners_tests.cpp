@@ -102,7 +102,7 @@ TEST_F(Engraving_SpannersTests, spanners01)
     EXPECT_TRUE(msr);
     seg   = msr->first();
     EXPECT_TRUE(seg);
-    chord = toChord(seg->element(4));     // voice 0 of staff 1
+    chord = toChord(seg->element(staff2track(1)));     // voice 0 of staff 1
     EXPECT_TRUE(chord);
     EXPECT_EQ(chord->type(), ElementType::CHORD);
     note  = chord->upNote();

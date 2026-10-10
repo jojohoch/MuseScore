@@ -436,7 +436,7 @@ TEST_F(Engraving_CopyPasteTests, copypastePartial)
     s = s->next(SegmentType::ChordRest);
     score->select(s->element(0));
     s = s->next(SegmentType::ChordRest);
-    score->select(s->element(4), SelectType::RANGE);
+    score->select(s->element(staff2track(1)), SelectType::RANGE);
 
     EXPECT_TRUE(score->selection().canCopy());
     String mimeType = score->selection().mimeType();

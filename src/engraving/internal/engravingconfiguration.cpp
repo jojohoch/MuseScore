@@ -66,13 +66,14 @@ static const Color UNLINKED_ITEM_COLOR = "#FF9300";
 
 void EngravingConfiguration::init()
 {
-    static const Color DEFAULT_VOICE_COLORS[VOICES + 1] {
+    static const Color DEFAULT_VOICE_COLORS[] {
         "#0065BF",
         "#007F00",
         "#C53F00",
         "#C31989",
-        "#6038FC", // "all voices"
     };
+    static_assert(std::size(DEFAULT_VOICE_COLORS) == VOICES, "Every voice needs a default color");
+    static const Color DEFAULT_ALL_VOICES_COLOR = "#6038FC";
 
     settings()->setDefaultValue(DEFAULT_STYLE_FILE_PATH, Val(muse::io::path_t()));
     settings()->valueChanged(DEFAULT_STYLE_FILE_PATH).onReceive(this, [this](const Val& val) {
@@ -101,7 +102,7 @@ void EngravingConfiguration::init()
     }
 
     static constexpr int ALL_VOICES_IDX = VOICES;
-    settings()->setDefaultValue(ALL_VOICES_COLOR, Val(DEFAULT_VOICE_COLORS[ALL_VOICES_IDX].toQColor()));
+    settings()->setDefaultValue(ALL_VOICES_COLOR, Val(DEFAULT_ALL_VOICES_COLOR.toQColor()));
     settings()->setDescription(ALL_VOICES_COLOR, muse::trc("engraving", "All voices color"));
     settings()->setCanBeManuallyEdited(ALL_VOICES_COLOR, true);
     settings()->valueChanged(ALL_VOICES_COLOR).onReceive(this, [&](const Val& val) {

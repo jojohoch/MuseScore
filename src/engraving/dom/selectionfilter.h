@@ -26,7 +26,7 @@
 #include "chord.h"
 
 namespace mu::engraving {
-static constexpr size_t NUM_VOICES_SELECTION_FILTER_TYPES = 4;
+static constexpr size_t NUM_VOICES_SELECTION_FILTER_TYPES = VOICES;
 enum class VoicesSelectionFilterTypes : unsigned int {
     NONE                    = 0,
     FIRST_VOICE             = 1 << 0,

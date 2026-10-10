@@ -1127,7 +1127,7 @@ bool Score::getPosition(Position* pos, const PointF& p, voice_idx_t voice) const
         }
         track_idx_t track = inputState().track();
         if (track != muse::nidx) {
-            preferredStaffIdx = track >> 2;
+            preferredStaffIdx = track2staff(track);
         }
     }
     Measure* measure = searchMeasure(p, preferredSystem, spacingFactor, preferredSpacingFactor);
