@@ -5,7 +5,7 @@
 .\"-
 .Dd November 6, 2020
 .Dt @MAN_MSCORE_UPPER@ 1
-.Os MuseScore
+.Os @MUSE_APP_TITLE@
 .Sh NAME@Variables_substituted_by_CMAKE_on_installation@
 .Nm mscore@MUSE_APP_INSTALL_SUFFIX@ ,
 .Nm musescore@MUSE_APP_INSTALL_SUFFIX@
@@ -62,12 +62,14 @@
 @MAN_PORTABLE@.Op Cm options
 @MAN_PORTABLE@.Op Ar
 .Sh DESCRIPTION
-.Nm MuseScore
-is a Free and Open Source WYSIWYG cross-platform multi-lingual
+.Nm @MUSE_APP_TITLE@
+is a modified version of MuseScore Studio with eight voices per staff.
+It is Free and Open Source WYSIWYG cross-platform multi-lingual
 music composition and notation software, released under the
-GNU General Public Licence (GPLv2).
+GNU General Public Licence (GPLv3).
+It is not a product of MuseScore Limited.
 @MAN_PORTABLE@.Ss Special options for the AppImage
-@MAN_PORTABLE@This portable version of MuseScore has all of MuseScore's
+@MAN_PORTABLE@This portable version of @MUSE_APP_TITLE@ has all of its
 @MAN_PORTABLE@usual features, but it runs on a wider range of distributions
 @MAN_PORTABLE@and does not need to be installed.
 @MAN_PORTABLE@There is an option to install it for full integration with
@@ -76,17 +78,17 @@ GNU General Public Licence (GPLv2).
 @MAN_PORTABLE@.Bl -tag -width Ds
 @MAN_PORTABLE@.It Cm man , Cm manual , Cm manpage
 @MAN_PORTABLE@Displays this manual.
-@MAN_PORTABLE@If MuseScore is installed, the manual can be viewed using
+@MAN_PORTABLE@If @MUSE_APP_TITLE@ is installed, the manual can be viewed using
 @MAN_PORTABLE@the familiar command:
 @MAN_PORTABLE@.Pp
 @MAN_PORTABLE@.Dl man mscore@MUSE_APP_INSTALL_SUFFIX@
 @MAN_PORTABLE@.It Cm install Oo Fl i Oc Op Ar prefix
-@MAN_PORTABLE@Run this without the options to fully integrate MuseScore
+@MAN_PORTABLE@Run this without the options to fully integrate @MUSE_APP_TITLE@
 @MAN_PORTABLE@with the desktop environment (GNOME, KDE, etc).
 @MAN_PORTABLE@This should:
 @MAN_PORTABLE@.Bl -bullet
 @MAN_PORTABLE@.It
-@MAN_PORTABLE@Add MuseScore to your Applications Menu or Launcher,
+@MAN_PORTABLE@Add @MUSE_APP_TITLE@ to your Applications Menu or Launcher,
 @MAN_PORTABLE@and add it to the
 @MAN_PORTABLE@.Dq Open with...
 @MAN_PORTABLE@list of programs.
@@ -97,7 +99,7 @@ GNU General Public Licence (GPLv2).
 @MAN_PORTABLE@environment variable.)
 @MAN_PORTABLE@.It
 @MAN_PORTABLE@Create symbolic links to make it easier to launch
-@MAN_PORTABLE@MuseScore from the command line when needed.
+@MAN_PORTABLE@@MUSE_APP_TITLE@ from the command line when needed.
 @MAN_PORTABLE@.It
 @MAN_PORTABLE@Make sure .MSCZ, .MSCX, .MSCS and MusicXML files are recognised
 @MAN_PORTABLE@by the system and the correct icons are displayed.
@@ -115,7 +117,7 @@ GNU General Public Licence (GPLv2).
 @MAN_PORTABLE@to install into a custom location.
 @MAN_PORTABLE@Installation is not required to run the program.
 @MAN_PORTABLE@.It Cm update , Cm upgrade Oo Fl i Oc Op Ar prefix
-@MAN_PORTABLE@Updates MuseScore to the latest version. This uses your internet
+@MAN_PORTABLE@Updates @MUSE_APP_TITLE@ to the latest version. This uses your internet
 @MAN_PORTABLE@connection to check for an update and download it if one is
 @MAN_PORTABLE@available. A delta update mechanism is used to minimise the
 @MAN_PORTABLE@amount of data that is downloaded.
@@ -128,14 +130,14 @@ GNU General Public Licence (GPLv2).
 @MAN_PORTABLE@for all users.
 @MAN_PORTABLE@.It Cm check\-depends , Cm check\-dependencies Op Cm exes\-only
 @MAN_PORTABLE@System information for developers.
-@MAN_PORTABLE@This detects which software libraries needed by MuseScore
+@MAN_PORTABLE@This detects which software libraries needed by @MUSE_APP_TITLE@
 @MAN_PORTABLE@are not available from the system and so must be packaged
-@MAN_PORTABLE@alongside the MuseScore portable version.
+@MAN_PORTABLE@alongside the @MUSE_APP_TITLE@ portable version.
 @MAN_PORTABLE@.El
-@MAN_PORTABLE@.Ss Normal MuseScore options
+@MAN_PORTABLE@.Ss Normal @MUSE_APP_TITLE@ options
 Running
 .Nm
-without any extra options launches the full graphical MuseScore program
+without any extra options launches the full graphical @MUSE_APP_TITLE@ program
 and opens any files specified on the command line.
 .Pp
 The options are as follows:
@@ -147,7 +149,7 @@ Override configuration and settings directory
 .It Fl D | Fl \-monitor\-resolution Ar DPI
 Specify monitor resolution (override autodetection)
 .It Fl d | Fl \-debug
-Start MuseScore in debug mode
+Start @MUSE_APP_TITLE@ in debug mode
 .It Fl E | Fl \-install\-extension Ar "extension file"
 Install an extension file; soundfonts are loaded by default unless
 .Fl e
@@ -168,13 +170,13 @@ Display an overview of invocation instructions
 Display all MIDI input on the console
 .It Fl i | \-load\-icons
 Load icons from the filesystem; useful if you want to
-edit the MuseScore icons and preview the changes
+edit the @MUSE_APP_TITLE@ icons and preview the changes
 .It Fl j | Fl \-job Ar file.json
 Process a conversion job (see
 .Sx EXAMPLES
 below)
 .It Fl L | \-layout\-debug
-Start MuseScore in layout debug mode
+Start @MUSE_APP_TITLE@ in layout debug mode
 .It Fl M | Fl \-midi\-operations Ar file
 Specify MIDI import operations file (see
 .Sx EXAMPLES
@@ -273,7 +275,7 @@ Transpose the given score (only if the \-o option is also set),
 then exports the given file in accordance with the \-o option
 .El
 .Pp
-MuseScore supports the automatic Qt command line options (see below).
+@MUSE_APP_TITLE@ supports the automatic Qt command line options (see below).
 .Ss Batch conversion job JSON format
 The argument to the
 .Fl j
@@ -398,7 +400,7 @@ Location of works the user created with the application; defaults to
 .Pa $XDG_CONFIG_HOME/user-dirs.dirs .
 .El
 .Pp
-Note that MuseScore also supports the normal Qt environment variables such as
+Note that @MUSE_APP_TITLE@ also supports the normal Qt environment variables such as
 .Ev QT_QPA_GENERIC_PLUGINS ,
 .Ev QT_QPA_PLATFORM ,
 .Ev QT_QPA_PLATFORMTHEME ,
@@ -419,25 +421,23 @@ respectively, instead.
 .Pp
 The per-user data (extensions, plugins, soundfonts, styles, templates) and
 files (images, scores) are normally installed into subdirectories under
-.Pa $XDG_DOCUMENTS_DIR/MuseScore3/
+.Pa $XDG_DOCUMENTS_DIR/@MUSE_APP_NAME@@MUSE_APP_VERSION_MAJOR@/
 but may be changed in the configuration.
 Note that snapshot, alpha and beta versions use
-.Pa MuseScore3Development
+.Pa @MUSE_APP_NAME@@MUSE_APP_VERSION_MAJOR@Development
 instead of
-.Pa MuseScore3
+.Pa @MUSE_APP_NAME@@MUSE_APP_VERSION_MAJOR@
 in all of these paths.
 .Pp
-.Pa $XDG_CONFIG_HOME/MuseScore/MuseScore3.ini
+.Pa $XDG_CONFIG_HOME/@MUSE_APP_NAME@/@MUSE_APP_NAME@@MUSE_APP_VERSION_MAJOR@.ini
 contains the user preferences, list of recently used files and their
 locations, window sizes and positions, etc.
 See above for development version paths.
 .Pp
-.Pa $XDG_DATA_HOME/MuseScore/MuseScore3/
+.Pa $XDG_DATA_HOME/@MUSE_APP_NAME@/@MUSE_APP_NAME@@MUSE_APP_VERSION_MAJOR@/
 contains updated localisation files downloaded from within the
-program, plugin information, cached scores, credentials for the
-.Pa musescore.com
-community site, session information, synthesiser settings, custom
-key and time signatures and shortcuts.
+program, plugin information, cached scores, session information,
+synthesiser settings, custom key and time signatures and shortcuts.
 See above for development version paths.
 .Sh EXAMPLES
 Convert a score to PDF from the command line:
@@ -546,7 +546,7 @@ Further documentation of command line options
 Documentation of automatic Qt command line options
 .El
 .Sh STANDARDS
-MuseScore attempts to implement the following standards:
+@MUSE_APP_TITLE@ attempts to implement the following standards:
 .Bl -bullet
 .It
 MusicXML 4.0 (score interchange format)
@@ -558,10 +558,13 @@ SF3 (SoundFont with OGG Vorbis-compressed samples)
 SMuFL (Standard Music Font Layout 1.4)
 .El
 .Sh HISTORY
+@MUSE_APP_TITLE@ is based on MuseScore Studio @MUSE_APP_VERSION@.
 MuseScore was split off the MusE sequencer in 2002 and has since
 become the foremost Open Source notation software.
 .Sh AUTHORS
-MuseScore is developed by MuseScore Limited.
+MuseScore Studio is developed by MuseScore Limited.
+The changes in @MUSE_APP_TITLE@ are maintained at
+.Pa https://github.com/jojohoch/MuseScore .
 .Pp
 This manual page was written by
 .An mirabilos Aq tg@debian.org .
@@ -576,7 +579,7 @@ has no chance at working because the
 .Fl reverse
 is removed by Qt first.
 .Sh BUGS
-MuseScore does not honour
+@MUSE_APP_TITLE@ does not honour
 .Pa /etc/papersize .
 .Pp
 Probably some more; check the project's bug tracker (cf.\&

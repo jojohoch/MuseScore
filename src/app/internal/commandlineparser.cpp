@@ -578,10 +578,12 @@ const CmdOptions& CommandLineParser::options() const
 void CommandLineParser::printLongVersion() const
 {
     if (BaseApplication::appUnstable()) {
-        printf("MuseScore: Music Score Editor\nUnstable Prerelease for Version %s; Build %s\n",
+        printf("%s: Music Score Editor\nUnstable Prerelease for Version %s; Build %s\n",
+               BaseApplication::appTitle().toStdString().c_str(),
                BaseApplication::appVersion().toStdString().c_str(), BaseApplication::appRevision().toStdString().c_str());
     } else {
-        printf("MuseScore: Music Score Editor; Version %s; Build %s\n",
+        printf("%s: Music Score Editor; Version %s; Build %s\n",
+               BaseApplication::appTitle().toStdString().c_str(),
                BaseApplication::appVersion().toStdString().c_str(), BaseApplication::appRevision().toStdString().c_str());
     }
 }
