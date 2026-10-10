@@ -1078,7 +1078,7 @@ bool Read206::readNoteProperties206(Note* note, XmlReader& e, ReadContext& ctx)
         note->setTpc1(tpc);
         note->setTpc2(tpc);
     } else if (tag == "track") {          // for performance
-        note->setTrack(e.readInt());
+        note->setTrack(trackFromFile(e.readInt()));
     } else if (tag == "Accidental") {
         Accidental* a = Factory::createAccidental(note);
         a->setTrack(note->track());
@@ -2546,9 +2546,9 @@ void Read206::readSlur206(XmlReader& e, ReadContext& ctx, Slur* s)
     while (e.readNextStartElement()) {
         const AsciiStringView tag(e.name());
         if (tag == "track2") {
-            s->setTrack2(e.readInt());
+            s->setTrack2(trackFromFile(e.readInt()));
         } else if (tag == "startTrack") {       // obsolete
-            s->setTrack(e.readInt());
+            s->setTrack(trackFromFile(e.readInt()));
         } else if (tag == "endTrack") {         // obsolete
             e.readInt();
         } else if (!readSlurTieProperties(e, ctx, s)) {

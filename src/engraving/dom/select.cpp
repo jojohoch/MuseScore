@@ -1266,8 +1266,8 @@ muse::ByteArray Selection::symbolListMimeData() const
     }
 
     xml.startElement("SymbolList", { { "version", Constants::MSC_VERSION_STR },
-                         { "fromtrack", topTrack },
-                         { "totrack", bottomTrack } });
+                         { "fromtrack", trackToFile(static_cast<int>(topTrack)) },
+                         { "totrack", trackToFile(static_cast<int>(bottomTrack)) } });
 
     // scan the map, outputting elements each with a relative <track> tag on track change,
     // a relative tick and the number of CR segments to skip
@@ -1276,7 +1276,7 @@ muse::ByteArray Selection::symbolListMimeData() const
         int numSegs;
         track_idx_t track = static_cast<track_idx_t>(iter->first >> 32);
         if (currTrack != track) {
-            xml.tag("trackOffset", static_cast<int>(track - topTrack));
+            xml.tag("trackOffset", trackToFile(static_cast<int>(track)) - trackToFile(static_cast<int>(topTrack)));
             currTrack = track;
             seg       = firstSeg;
         }

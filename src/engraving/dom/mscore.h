@@ -49,6 +49,37 @@ inline constexpr track_idx_t trackZeroVoice(track_idx_t track)
     return track != muse::nidx ? (track / VOICES) * VOICES : muse::nidx;
 }
 
+// Track numbers stored in files count FILE_VOICES voices per staff,
+// independent of VOICES. Convert them when they cross the file boundary.
+static constexpr int FILE_VOICES = 4;
+
+inline constexpr int trackFromFile(int fileTrack)
+{
+    if (fileTrack < 0) {
+        return fileTrack;
+    }
+    return (fileTrack / FILE_VOICES) * static_cast<int>(VOICES) + fileTrack % FILE_VOICES;
+}
+
+inline constexpr int trackToFile(int track)
+{
+    if (track < 0) {
+        return track;
+    }
+    return (track / static_cast<int>(VOICES)) * FILE_VOICES + track % static_cast<int>(VOICES);
+}
+
+// A span counts the tracks from track up to and including its last track (e.g. Arpeggio::span())
+inline constexpr int trackSpanFromFile(int track, int fileSpan)
+{
+    return trackFromFile(trackToFile(track) + fileSpan - 1) - track + 1;
+}
+
+inline constexpr int trackSpanToFile(int track, int span)
+{
+    return trackToFile(track + span - 1) - trackToFile(track) + 1;
+}
+
 inline constexpr bool isUpVoice(voice_idx_t voiceIdx)
 {
     return !(voiceIdx & 1);

@@ -353,7 +353,7 @@ bool TRead::readItemProperties(EngravingItem* item, XmlReader& e, ReadContext& c
     } else if (TRead::readProperty(item, tag, e, ctx, Pid::MIN_DISTANCE)) {
     } else if (TRead::readProperty(item, tag, e, ctx, Pid::AUTOPLACE)) {
     } else if (tag == "track") {
-        item->setTrack(e.readInt() + ctx.trackOffset());
+        item->setTrack(trackFromFile(e.readInt()) + ctx.trackOffset());
     } else if (tag == "color") {
         item->setColor(e.readColor());
     } else if (tag == "visible") {
@@ -3060,7 +3060,7 @@ bool TRead::readProperties(Note* n, XmlReader& e, ReadContext& ctx)
         n->setTpc1(tcp);
         n->setTpc2(tcp);
     } else if (tag == "track") {          // for performance
-        n->setTrack(e.readInt());
+        n->setTrack(trackFromFile(e.readInt()));
     } else if (tag == "Accidental") {
         Accidental* a = Factory::createAccidental(n);
         a->setTrack(n->track());

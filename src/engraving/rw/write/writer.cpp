@@ -124,7 +124,8 @@ void Writer::write(Score* score, XmlWriter& xml, WriteContext& ctx, compat::Writ
         const TracksMap& tracks = e->tracksMapping();
         if (!(tracks.size() == e->nstaves() * VOICES) && !tracks.empty()) {
             for (auto it = tracks.begin(); it != tracks.end(); ++it) {
-                xml.tag("Tracklist", { { "sTrack", it->first }, { "dstTrack", it->second } });
+                xml.tag("Tracklist", { { "sTrack", trackToFile(static_cast<int>(it->first)) },
+                            { "dstTrack", trackToFile(static_cast<int>(it->second)) } });
             }
         }
 

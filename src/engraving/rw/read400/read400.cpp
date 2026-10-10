@@ -231,8 +231,8 @@ bool Read400::readScoreTag(Score* score, XmlReader& e, ReadContext& ctx)
                 e.skipCurrentElement();
             }
         } else if (e.name() == "Tracklist") {
-            int strack = e.intAttribute("sTrack",   -1);
-            int dtrack = e.intAttribute("dstTrack", -1);
+            int strack = trackFromFile(e.intAttribute("sTrack",   -1));
+            int dtrack = trackFromFile(e.intAttribute("dstTrack", -1));
             if (strack != -1 && dtrack != -1) {
                 ctx.tracks().insert({ strack, dtrack });
             }
@@ -859,7 +859,7 @@ void Read400::pasteSymbols(XmlReader& e, ChordRest* dst)
             const AsciiStringView tag(e.name());
 
             if (tag == "trackOffset") {
-                destTrack = startTrack + e.readInt();
+                destTrack = trackFromFile(trackToFile(static_cast<int>(startTrack)) + e.readInt());
                 currSegm  = startSegm;
             } else if (tag == "tickOffset") {
                 destTick = startTick + Fraction::fromTicks(e.readInt());

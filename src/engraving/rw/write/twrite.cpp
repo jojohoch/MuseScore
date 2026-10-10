@@ -566,7 +566,7 @@ void TWrite::writeItemProperties(const EngravingItem* item, XmlWriter& xml, Writ
         // Writing track number for beams and tuplets is redundant as it is calculated
         // during layout.
         int t = static_cast<int>(item->track()) + ctx.trackDiff();
-        xml.tag("track", t);
+        xml.tag("track", trackToFile(t));
     }
 
     for (Pid pid : { Pid::OFFSET, Pid::COLOR, Pid::VISIBLE, Pid::Z }) {
@@ -681,7 +681,7 @@ void TWrite::writeProperties(const Arpeggio* item, XmlWriter& xml, WriteContext&
         xml.tag("userLen2", item->userLen2() / item->spatium());
     }
     if (item->span() != 1) {
-        xml.tag("span", item->span());
+        xml.tag("span", trackSpanToFile(static_cast<int>(item->track()), item->span()));
     }
     writeProperty(item, xml, Pid::PLAY);
     writeProperty(item, xml, Pid::TIME_STRETCH);

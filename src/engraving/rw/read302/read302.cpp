@@ -136,8 +136,8 @@ bool Read302::readScoreTag(Score* score, XmlReader& e, ReadContext& ctx)
             read400::TRead::readItem(s, e, ctx);
             score->addSpanner(s);
         } else if (e.name() == "Tracklist") {
-            int strack = e.intAttribute("sTrack",   -1);
-            int dtrack = e.intAttribute("dstTrack", -1);
+            int strack = trackFromFile(e.intAttribute("sTrack",   -1));
+            int dtrack = trackFromFile(e.intAttribute("dstTrack", -1));
             if (strack != -1 && dtrack != -1) {
                 ctx.tracks().insert({ strack, dtrack });
             }
