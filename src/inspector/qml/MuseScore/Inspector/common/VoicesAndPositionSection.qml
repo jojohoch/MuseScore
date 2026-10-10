@@ -54,7 +54,11 @@ Column {
 
         navigationPanel: root.navigationPanel
         navigationRowStart: root.navigationRowStart
-        navigationRowEnd: individualVoicesSection.navigationRowEnd
+        navigationRowEnd: moreVoicesSection.navigationRowEnd
+
+        readonly property var currentVoice: propertyItem && !propertyItem.isUndefined && propertyItem.value === VoiceTypes.VOICE_CURRENT_ONLY
+                                            ? root.model ? root.model.voice.value : undefined
+                                            : undefined
 
         RowLayout {
             width: parent.width
@@ -145,9 +149,7 @@ Column {
                 Layout.fillWidth: true
                 height: 30
 
-                currentValue: voiceAssignmentSection.propertyItem && !voiceAssignmentSection.propertyItem.isUndefined && voiceAssignmentSection.propertyItem.value === VoiceTypes.VOICE_CURRENT_ONLY
-                              ? root.model ? root.model.voice.value : undefined
-                              : undefined
+                currentValue: voiceAssignmentSection.currentVoice
 
                 model: [
                     { iconCode: IconCode.VOICE_1, value: 0, title: qsTrc("inspector", "Voice 1"), shortcuts: root.model?.shortcutUseVoice1 ?? "" },
@@ -159,6 +161,31 @@ Column {
                 onToggled: function(newValue) {
                     root.model?.changeVoice?.(newValue)
                 }
+            }
+        }
+
+        FlatRadioButtonList {
+            id: moreVoicesSection
+
+            navigationPanel: root.navigationPanel
+            navigationRowStart: individualVoicesSection.navigationRowEnd + 1
+
+            // Aligned below voices 1-4
+            x: individualVoicesSection.x
+            width: individualVoicesSection.width
+            height: 30
+
+            currentValue: voiceAssignmentSection.currentVoice
+
+            model: [
+                { iconCode: IconCode.VOICE_5, value: 4, title: qsTrc("inspector", "Voice 5"), shortcuts: root.model?.shortcutUseVoice5 ?? "" },
+                { iconCode: IconCode.VOICE_6, value: 5, title: qsTrc("inspector", "Voice 6"), shortcuts: root.model?.shortcutUseVoice6 ?? "" },
+                { iconCode: IconCode.VOICE_7, value: 6, title: qsTrc("inspector", "Voice 7"), shortcuts: root.model?.shortcutUseVoice7 ?? "" },
+                { iconCode: IconCode.VOICE_8, value: 7, title: qsTrc("inspector", "Voice 8"), shortcuts: root.model?.shortcutUseVoice8 ?? "" },
+            ]
+
+            onToggled: function(newValue) {
+                root.model?.changeVoice?.(newValue)
             }
         }
     }

@@ -47,6 +47,10 @@ class InspectorModelWithVoiceAndPositionOptions : public AbstractInspectorModel
     Q_PROPERTY(QString shortcutUseVoice2 READ shortcutUseVoice2 CONSTANT)
     Q_PROPERTY(QString shortcutUseVoice3 READ shortcutUseVoice3 CONSTANT)
     Q_PROPERTY(QString shortcutUseVoice4 READ shortcutUseVoice4 CONSTANT)
+    Q_PROPERTY(QString shortcutUseVoice5 READ shortcutUseVoice5 CONSTANT)
+    Q_PROPERTY(QString shortcutUseVoice6 READ shortcutUseVoice6 CONSTANT)
+    Q_PROPERTY(QString shortcutUseVoice7 READ shortcutUseVoice7 CONSTANT)
+    Q_PROPERTY(QString shortcutUseVoice8 READ shortcutUseVoice8 CONSTANT)
     Q_PROPERTY(QString shortcutUseAllVoicesInstrument READ shortcutUseAllVoicesInstrument CONSTANT)
     Q_PROPERTY(QString shortcutUseAllVoicesStaff READ shortcutUseAllVoicesStaff CONSTANT)
 
@@ -73,6 +77,10 @@ public:
     QString shortcutUseVoice2() const;
     QString shortcutUseVoice3() const;
     QString shortcutUseVoice4() const;
+    QString shortcutUseVoice5() const;
+    QString shortcutUseVoice6() const;
+    QString shortcutUseVoice7() const;
+    QString shortcutUseVoice8() const;
     QString shortcutUseAllVoicesInstrument() const;
     QString shortcutUseAllVoicesStaff() const;
 

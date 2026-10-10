@@ -200,6 +200,26 @@ QString InspectorModelWithVoiceAndPositionOptions::shortcutUseVoice4() const
     return shortcutsForActionCode("voice-4");
 }
 
+QString InspectorModelWithVoiceAndPositionOptions::shortcutUseVoice5() const
+{
+    return shortcutsForActionCode("voice-5");
+}
+
+QString InspectorModelWithVoiceAndPositionOptions::shortcutUseVoice6() const
+{
+    return shortcutsForActionCode("voice-6");
+}
+
+QString InspectorModelWithVoiceAndPositionOptions::shortcutUseVoice7() const
+{
+    return shortcutsForActionCode("voice-7");
+}
+
+QString InspectorModelWithVoiceAndPositionOptions::shortcutUseVoice8() const
+{
+    return shortcutsForActionCode("voice-8");
+}
+
 QString InspectorModelWithVoiceAndPositionOptions::shortcutUseAllVoicesInstrument() const
 {
     return shortcutsForActionCode("voice-assignment-all-in-instrument");

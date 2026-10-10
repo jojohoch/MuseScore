@@ -776,6 +776,22 @@
     <seq>Ctrl+Alt+4</seq>
     </SC>
   <SC>
+    <key>voice-5</key>
+    <seq>Ctrl+Alt+5</seq>
+    </SC>
+  <SC>
+    <key>voice-6</key>
+    <seq>Ctrl+Alt+6</seq>
+    </SC>
+  <SC>
+    <key>voice-7</key>
+    <seq>Ctrl+Alt+7</seq>
+    </SC>
+  <SC>
+    <key>voice-8</key>
+    <seq>Ctrl+Alt+8</seq>
+    </SC>
+  <SC>
     <key>voice-assignment-all-in-instrument</key>
     <seq>Ctrl+Alt+0</seq>
     </SC>

@@ -2515,6 +2515,34 @@ const UiActionList NotationUiActions::s_actions = {
              TranslatableString("action", "Use voice 4"),
              IconCode::Code::VOICE_4
              ),
+    UiAction("voice-5",
+             mu::context::UiCtxProjectOpened,
+             mu::context::CTX_NOTATION_OPENED,
+             TranslatableString("action", "Voice 5"),
+             TranslatableString("action", "Use voice 5"),
+             IconCode::Code::VOICE_5
+             ),
+    UiAction("voice-6",
+             mu::context::UiCtxProjectOpened,
+             mu::context::CTX_NOTATION_OPENED,
+             TranslatableString("action", "Voice 6"),
+             TranslatableString("action", "Use voice 6"),
+             IconCode::Code::VOICE_6
+             ),
+    UiAction("voice-7",
+             mu::context::UiCtxProjectOpened,
+             mu::context::CTX_NOTATION_OPENED,
+             TranslatableString("action", "Voice 7"),
+             TranslatableString("action", "Use voice 7"),
+             IconCode::Code::VOICE_7
+             ),
+    UiAction("voice-8",
+             mu::context::UiCtxProjectOpened,
+             mu::context::CTX_NOTATION_OPENED,
+             TranslatableString("action", "Voice 8"),
+             TranslatableString("action", "Use voice 8"),
+             IconCode::Code::VOICE_8
+             ),
     UiAction("voice-assignment-all-in-instrument",
              mu::context::UiCtxProjectOpened,
              mu::context::CTX_NOTATION_OPENED,
@@ -3020,7 +3048,11 @@ int NotationUiActions::actionVoice(const ActionCode& actionCode)
         { "voice-1", 0 },
         { "voice-2", 1 },
         { "voice-3", 2 },
-        { "voice-4", 3 }
+        { "voice-4", 3 },
+        { "voice-5", 4 },
+        { "voice-6", 5 },
+        { "voice-7", 6 },
+        { "voice-8", 7 }
     };
 
     int voice = 0;
@@ -3102,8 +3134,12 @@ const muse::ui::ToolConfig& NotationUiActions::defaultNoteInputBarConfig()
             { "", true },
             { "voice-1", true },
             { "voice-2", true },
-            { "voice-3", false },
-            { "voice-4", false }
+            { "voice-3", true },
+            { "voice-4", true },
+            { "voice-5", true },
+            { "voice-6", true },
+            { "voice-7", true },
+            { "voice-8", true }
         };
     }
     return config;

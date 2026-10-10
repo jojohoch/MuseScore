@@ -538,6 +538,11 @@ enum class Code : char16_t {
 
     VIDEO = 0xF4C2,
 
+    VOICE_5 = 0xF4C3,
+    VOICE_6 = 0xF4C4,
+    VOICE_7 = 0xF4C5,
+    VOICE_8 = 0xF4C6,
+
     NONE = 0xFFFF
 };
 

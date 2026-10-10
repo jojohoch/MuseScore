@@ -352,7 +352,11 @@ void NoteInputBarModel::updateVoicesState()
         "voice-1",
         "voice-2",
         "voice-3",
-        "voice-4"
+        "voice-4",
+        "voice-5",
+        "voice-6",
+        "voice-7",
+        "voice-8"
     };
 
     int currentVoice = resolveCurrentVoiceIndex();
