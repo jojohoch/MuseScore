@@ -4291,6 +4291,27 @@ static void writeTimeModification(XmlWriter& xml, const Tuplet* const tuplet, co
 }
 
 //---------------------------------------------------------
+//   voiceNumber
+//    The MusicXML voice number. Voices 1-4 count four voices
+//    per staff, as in MuseScore Studio, so that exports of scores
+//    with up to four voices do not change. Further voices are
+//    numbered after those of all staves of the part.
+//    staff is 1-based within the part, or 0 for a single-staff part.
+//---------------------------------------------------------
+
+static int voiceNumber(const ChordRest* cr, staff_idx_t staff)
+{
+    const int staffInPart = staff > 0 ? static_cast<int>(staff) - 1 : 0;
+    const int voice = static_cast<int>(cr->voice());
+    if (voice < FILE_VOICES) {
+        return staffInPart * FILE_VOICES + voice + 1;
+    }
+    const int staves = static_cast<int>(cr->part()->nstaves());
+    const int extraVoices = static_cast<int>(VOICES) - FILE_VOICES;
+    return staves * FILE_VOICES + staffInPart * extraVoices + voice - FILE_VOICES + 1;
+}
+
+//---------------------------------------------------------
 //   writePitch
 //---------------------------------------------------------
 
@@ -4451,15 +4472,7 @@ void ExportMusicXml::chord(Chord* chord, staff_idx_t staff, const std::vector<Ly
             m_xml.tagRaw(String(u"instrument %1").arg(instrId(partNr + 1, note->pitch() + 1)));
         }
 
-        // voice
-        // for a single-staff part, staff is 0, which needs to be corrected
-        // to calculate the correct voice number
-        voice_idx_t voice = (static_cast<int>(staff) - 1) * VOICES + note->chord()->voice() + 1;
-        if (staff == 0) {
-            voice += VOICES;
-        }
-
-        m_xml.tag("voice", static_cast<int>(voice));
+        m_xml.tag("voice", voiceNumber(note->chord(), staff));
 
         writeType(m_xml, note);
         for (const NoteDot* dot : note->dots()) {
@@ -4669,13 +4682,7 @@ void ExportMusicXml::rest(Rest* rest, staff_idx_t staff, const std::vector<Lyric
 
     m_xml.tag("duration", calculateDurationInDivisions(tickLen, m_div));
 
-    // for a single-staff part, staff is 0, which needs to be corrected
-    // to calculate the correct voice number
-    voice_idx_t voice = (static_cast<int>(staff) - 1) * VOICES + rest->voice() + 1;
-    if (staff == 0) {
-        voice += VOICES;
-    }
-    m_xml.tag("voice", static_cast<int>(voice));
+    m_xml.tag("voice", voiceNumber(rest, staff));
 
     // do not output a "type" element for whole measure rest
     if (!d.isMeasure()) {

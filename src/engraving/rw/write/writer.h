@@ -43,7 +43,7 @@ public:
     static void write(Score* score, XmlWriter& xml, WriteContext& ctx, compat::WriteScoreHook& hook);
 
     void writeSegments(XmlWriter& xml, SelectionFilter* filter, track_idx_t st, track_idx_t et, Segment* sseg, Segment* eseg, bool, bool,
-                       Fraction& curTick) override;
+                       Fraction& curTick, int fileVoices) override;
 
 private:
     void doWriteItem(const EngravingItem* item, XmlWriter& xml) override;

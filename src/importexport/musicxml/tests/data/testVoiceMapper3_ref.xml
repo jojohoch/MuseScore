@@ -102,11 +102,24 @@
         </backup>
       <note>
         <pitch>
+          <step>B</step>
+          <octave>4</octave>
+          </pitch>
+        <duration>8</duration>
+        <voice>3</voice>
+        <type>breve</type>
+        <staff>1</staff>
+        </note>
+      <backup>
+        <duration>8</duration>
+        </backup>
+      <note>
+        <pitch>
           <step>G</step>
           <octave>4</octave>
           </pitch>
         <duration>4</duration>
-        <voice>3</voice>
+        <voice>4</voice>
         <type>whole</type>
         <staff>1</staff>
         </note>
@@ -116,7 +129,7 @@
           <octave>4</octave>
           </pitch>
         <duration>4</duration>
-        <voice>3</voice>
+        <voice>4</voice>
         <type>whole</type>
         <staff>1</staff>
         </note>
@@ -129,7 +142,7 @@
           <octave>4</octave>
           </pitch>
         <duration>4</duration>
-        <voice>4</voice>
+        <voice>9</voice>
         <type>whole</type>
         <staff>1</staff>
         </note>
@@ -139,7 +152,7 @@
           <octave>4</octave>
           </pitch>
         <duration>4</duration>
-        <voice>4</voice>
+        <voice>9</voice>
         <type>whole</type>
         <staff>1</staff>
         </note>
@@ -217,11 +230,24 @@
         </backup>
       <note>
         <pitch>
+          <step>B</step>
+          <octave>2</octave>
+          </pitch>
+        <duration>8</duration>
+        <voice>8</voice>
+        <type>breve</type>
+        <staff>2</staff>
+        </note>
+      <backup>
+        <duration>8</duration>
+        </backup>
+      <note>
+        <pitch>
           <step>G</step>
           <octave>2</octave>
           </pitch>
         <duration>4</duration>
-        <voice>8</voice>
+        <voice>13</voice>
         <type>whole</type>
         <staff>2</staff>
         </note>
@@ -231,7 +257,7 @@
           <octave>2</octave>
           </pitch>
         <duration>4</duration>
-        <voice>8</voice>
+        <voice>13</voice>
         <type>whole</type>
         <staff>2</staff>
         </note>

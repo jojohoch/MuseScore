@@ -1088,8 +1088,15 @@ muse::ByteArray Selection::staffMimeData() const
     Fraction ticks = tickEnd() - tickStart();
     int staves = static_cast<int>(staffEnd() - staffStart());
 
+    const bool eightVoices = m_score->usesVoicesBeyond(FILE_VOICES);
+    const int fileVoices = eightVoices ? static_cast<int>(VOICES) : FILE_VOICES;
+    const char* version = MScore::testMode ? "2.00" : Constants::MSC_VERSION_STR;
+    if (eightVoices) {
+        version = Constants::MSC_VERSION_EIGHT_VOICES_STR;
+    }
+
     XmlWriter::Attributes staffListAttributes = {
-        { "version", (MScore::testMode ? "2.00" : Constants::MSC_VERSION_STR) },
+        { "version", version },
         { "tick", tickStart().toString() },
         { "len", ticks.toString() },
         { "staff", staffStart() },
@@ -1131,7 +1138,8 @@ muse::ByteArray Selection::staffMimeData() const
         }
         xml.endElement();     // </voiceOffset>
 
-        rw::RWRegister::writer(m_score->iocContext())->writeSegments(xml, &filter, startTrack, endTrack, seg1, seg2, false, false, curTick);
+        rw::RWRegister::writer(m_score->iocContext())->writeSegments(xml, &filter, startTrack, endTrack, seg1, seg2, false, false, curTick,
+                                                                     fileVoices);
         xml.endElement();
     }
 
@@ -1265,9 +1273,12 @@ muse::ByteArray Selection::symbolListMimeData() const
         map.insert(std::pair<int64_t, MapData>(((int64_t)track << 32) + seg->tick().ticks(), mapData));
     }
 
-    xml.startElement("SymbolList", { { "version", Constants::MSC_VERSION_STR },
-                         { "fromtrack", trackToFile(static_cast<int>(topTrack)) },
-                         { "totrack", trackToFile(static_cast<int>(bottomTrack)) } });
+    const bool eightVoices = m_score->usesVoicesBeyond(FILE_VOICES);
+    const int fileVoices = eightVoices ? static_cast<int>(VOICES) : FILE_VOICES;
+
+    xml.startElement("SymbolList", { { "version", eightVoices ? Constants::MSC_VERSION_EIGHT_VOICES_STR : Constants::MSC_VERSION_STR },
+                         { "fromtrack", trackToFile(static_cast<int>(topTrack), fileVoices) },
+                         { "totrack", trackToFile(static_cast<int>(bottomTrack), fileVoices) } });
 
     // scan the map, outputting elements each with a relative <track> tag on track change,
     // a relative tick and the number of CR segments to skip
@@ -1276,7 +1287,8 @@ muse::ByteArray Selection::symbolListMimeData() const
         int numSegs;
         track_idx_t track = static_cast<track_idx_t>(iter->first >> 32);
         if (currTrack != track) {
-            xml.tag("trackOffset", trackToFile(static_cast<int>(track)) - trackToFile(static_cast<int>(topTrack)));
+            xml.tag("trackOffset",
+                    trackToFile(static_cast<int>(track), fileVoices) - trackToFile(static_cast<int>(topTrack), fileVoices));
             currTrack = track;
             seg       = firstSeg;
         }

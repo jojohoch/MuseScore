@@ -31,6 +31,12 @@ struct Constants
     static constexpr int MSC_VERSION = 470;
     static constexpr const char* MSC_VERSION_STR = "4.70";
 
+    // Files and clipboard data that use more than four voices per staff carry this
+    // version instead. It is higher than any official version, so MuseScore Studio
+    // builds with four voices refuse to open them instead of misreading them.
+    static constexpr int MSC_VERSION_EIGHT_VOICES = 9970;
+    static constexpr const char* MSC_VERSION_EIGHT_VOICES_STR = "99.70";
+
 // History:
 //    1.3   added staff->_barLineSpan
 //    1.4   (Version 0.9)

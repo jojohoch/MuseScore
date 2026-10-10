@@ -27,7 +27,7 @@
 #include "engraving/types/types.h"
 
 namespace mu::engraving {
-static constexpr size_t VOICES = 4;
+static constexpr size_t VOICES = 8;
 
 inline constexpr track_idx_t staff2track(staff_idx_t staffIdx, voice_idx_t voiceIdx = 0)
 {
@@ -51,33 +51,35 @@ inline constexpr track_idx_t trackZeroVoice(track_idx_t track)
 
 // Track numbers stored in files count FILE_VOICES voices per staff,
 // independent of VOICES. Convert them when they cross the file boundary.
+// Files that use voices beyond FILE_VOICES count VOICES voices per staff instead
+// and are marked with Constants::MSC_VERSION_EIGHT_VOICES.
 static constexpr int FILE_VOICES = 4;
 
-inline constexpr int trackFromFile(int fileTrack)
+inline constexpr int trackFromFile(int fileTrack, int fileVoices = FILE_VOICES)
 {
     if (fileTrack < 0) {
         return fileTrack;
     }
-    return (fileTrack / FILE_VOICES) * static_cast<int>(VOICES) + fileTrack % FILE_VOICES;
+    return (fileTrack / fileVoices) * static_cast<int>(VOICES) + fileTrack % fileVoices;
 }
 
-inline constexpr int trackToFile(int track)
+inline constexpr int trackToFile(int track, int fileVoices = FILE_VOICES)
 {
     if (track < 0) {
         return track;
     }
-    return (track / static_cast<int>(VOICES)) * FILE_VOICES + track % static_cast<int>(VOICES);
+    return (track / static_cast<int>(VOICES)) * fileVoices + track % static_cast<int>(VOICES);
 }
 
 // A span counts the tracks from track up to and including its last track (e.g. Arpeggio::span())
-inline constexpr int trackSpanFromFile(int track, int fileSpan)
+inline constexpr int trackSpanFromFile(int track, int fileSpan, int fileVoices = FILE_VOICES)
 {
-    return trackFromFile(trackToFile(track) + fileSpan - 1) - track + 1;
+    return trackFromFile(trackToFile(track, fileVoices) + fileSpan - 1, fileVoices) - track + 1;
 }
 
-inline constexpr int trackSpanToFile(int track, int span)
+inline constexpr int trackSpanToFile(int track, int span, int fileVoices = FILE_VOICES)
 {
-    return trackToFile(track + span - 1) - trackToFile(track) + 1;
+    return trackToFile(track + span - 1, fileVoices) - trackToFile(track, fileVoices) + 1;
 }
 
 inline constexpr bool isUpVoice(voice_idx_t voiceIdx)

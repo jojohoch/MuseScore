@@ -49,6 +49,7 @@ struct ReadInOutData {
     std::optional<double> overriddenSpatium = std::nullopt;
     PropertyIdSet propertiesToSkip;
     bool forcePageMode = false;
+    int fileVoices = FILE_VOICES; // set by MscLoader from the file version
 
     // out
     SettingsCompat settingsCompat;

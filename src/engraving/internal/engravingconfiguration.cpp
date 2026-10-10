@@ -71,6 +71,10 @@ void EngravingConfiguration::init()
         "#007F00",
         "#C53F00",
         "#C31989",
+        "#00838F",
+        "#9A6A00",
+        "#4E5D94",
+        "#B3003C",
     };
     static_assert(std::size(DEFAULT_VOICE_COLORS) == VOICES, "Every voice needs a default color");
     static const Color DEFAULT_ALL_VOICES_COLOR = "#6038FC";

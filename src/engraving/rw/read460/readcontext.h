@@ -105,6 +105,9 @@ public:
     int trackOffset() const { return _trackOffset; }
     void setTrack(track_idx_t val) { _track = val; }
 
+    int fileVoices() const { return m_fileVoices; }
+    void setFileVoices(int val) { m_fileVoices = val; }
+
     void setCurrentMeasure(Measure* m) { _curMeasure = m; }
     Measure* currentMeasure() const { return _curMeasure; }
     void setLastMeasure(Measure* m) { _lastMeasure = m; }
@@ -151,6 +154,7 @@ private:
 
     int _trackOffset = 0;
     track_idx_t _track = 0;
+    int m_fileVoices = FILE_VOICES;
 
     Measure* _curMeasure = nullptr;
     Measure* _lastMeasure = nullptr;

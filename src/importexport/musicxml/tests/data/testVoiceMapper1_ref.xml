@@ -132,6 +132,22 @@
         <type>quarter</type>
         <stem>down</stem>
         </note>
+      <backup>
+        <duration>2</duration>
+        </backup>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+          </pitch>
+        <duration>1</duration>
+        <voice>5</voice>
+        <type>quarter</type>
+        <stem>down</stem>
+        </note>
+      <forward>
+        <duration>1</duration>
+        </forward>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
         </barline>

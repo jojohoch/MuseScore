@@ -955,6 +955,9 @@ public:
 
     std::list<Score*> scoreList();
 
+    // True if the master score or one of its parts has an item in a voice with index >= voiceCount
+    bool usesVoicesBeyond(size_t voiceCount);
+
     void appendMeasures(int numMeasures);
 
     const std::multimap<int, Spanner*>& spanner() const { return m_spanner.map(); }

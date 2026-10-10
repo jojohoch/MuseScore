@@ -73,7 +73,7 @@ struct TimestampAndDuration {
     duration_t duration = 0;
 };
 
-static constexpr voice_layer_idx_t MAX_VOICES = 4;
+static constexpr voice_layer_idx_t MAX_VOICES = 8; // Octet: eight voices per staff
 
 constexpr inline layer_idx_t makeLayerIdx(const staff_layer_idx_t staffIdx, const voice_layer_idx_t voiceIdx)
 {

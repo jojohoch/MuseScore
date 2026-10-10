@@ -72,6 +72,7 @@ muse::Ret Read460::readScoreFile(Score* score, XmlReader& e, rw::ReadInOutData* 
 
         ctx.setPropertiesToSkip(data->propertiesToSkip);
         ctx.setForcePageMode(data->forcePageMode);
+        ctx.setFileVoices(data->fileVoices);
     }
 
     while (e.readNextStartElement()) {
@@ -227,8 +228,8 @@ bool Read460::readScoreTag(Score* score, XmlReader& e, ReadContext& ctx)
                 e.skipCurrentElement();
             }
         } else if (e.name() == "Tracklist") {
-            int strack = trackFromFile(e.intAttribute("sTrack",   -1));
-            int dtrack = trackFromFile(e.intAttribute("dstTrack", -1));
+            int strack = trackFromFile(e.intAttribute("sTrack",   -1), ctx.fileVoices());
+            int dtrack = trackFromFile(e.intAttribute("dstTrack", -1), ctx.fileVoices());
             if (strack != -1 && dtrack != -1) {
                 ctx.tracks().insert({ strack, dtrack });
             }
@@ -361,7 +362,9 @@ bool Read460::pasteStaff(XmlReader& e, Segment* dst, staff_idx_t dstStaff, Fract
             break;
         }
         String version = e.attribute("version", u"NONE");
-        if (!MScore::testMode) {
+        if (version == Constants::MSC_VERSION_EIGHT_VOICES_STR) {
+            ctx.setFileVoices(static_cast<int>(VOICES));
+        } else if (!MScore::testMode) {
             if (version != Constants::MSC_VERSION_STR) {
                 LOGD("pasteStaff: bad version");
                 break;
@@ -882,7 +885,9 @@ void Read460::pasteSymbols(XmlReader& e, ChordRest* dst)
             break;
         }
         String version = e.attribute("version", u"NONE");
-        if (version != Constants::MSC_VERSION_STR) {
+        if (version == Constants::MSC_VERSION_EIGHT_VOICES_STR) {
+            ctx.setFileVoices(static_cast<int>(VOICES));
+        } else if (version != Constants::MSC_VERSION_STR) {
             break;
         }
 
@@ -893,7 +898,8 @@ void Read460::pasteSymbols(XmlReader& e, ChordRest* dst)
             const AsciiStringView tag(e.name());
 
             if (tag == "trackOffset") {
-                destTrack = trackFromFile(trackToFile(static_cast<int>(startTrack)) + e.readInt());
+                const int fileVoices = ctx.fileVoices();
+                destTrack = trackFromFile(trackToFile(static_cast<int>(startTrack), fileVoices) + e.readInt(), fileVoices);
                 currSegm  = startSegm;
             } else if (tag == "tickOffset") {
                 destTick = startTick + Fraction::fromTicks(e.readInt());

@@ -34,6 +34,7 @@
 #include "../dom/audio.h"
 #include "../dom/excerpt.h"
 #include "../dom/imageStore.h"
+#include "../dom/staff.h"
 
 #include "engraving/automation/iautomation.h"
 
@@ -69,6 +70,44 @@ static RetVal<IReaderPtr> makeReader(int version, bool ignoreVersionError)
     }
 
     return RetVal<IReaderPtr>::make_ok(RWRegister::reader(version));
+}
+
+// Voices beyond those a file can store did not exist when it was saved, so a part
+// that shows only some voices has no track mapping for them. Show them in such parts.
+static void mapVoicesBeyondFile(MasterScore* masterScore, int fileVoices)
+{
+    for (Excerpt* excerpt : masterScore->excerpts()) {
+        const Score* partScore = excerpt->excerptScore();
+        TracksMap tracks = excerpt->tracksMapping();
+        if (!partScore || tracks.empty()) {
+            continue;
+        }
+
+        for (const Staff* staff : partScore->staves()) {
+            const Staff* masterStaff = masterScore->staffById(staff->id());
+            if (!masterStaff) {
+                continue;
+            }
+
+            const track_idx_t masterTrack = staff2track(masterStaff->idx());
+            const track_idx_t partTrack = staff2track(staff->idx());
+            size_t partVoices = 0;
+            for (const auto& [src, dst] : tracks) {
+                if (track2staff(src) == masterStaff->idx() && track2staff(dst) == staff->idx()) {
+                    ++partVoices;
+                }
+            }
+            if (partVoices == 0) {
+                continue;
+            }
+
+            for (voice_idx_t voice = static_cast<voice_idx_t>(fileVoices); voice < VOICES; ++voice) {
+                tracks.insert({ masterTrack + voice, partTrack + partVoices++ });
+            }
+        }
+
+        excerpt->setTracksMapping(tracks);
+    }
 }
 
 Ret MscLoader::loadMscz(MasterScore* masterScore, const MscReader& mscReader, rw::ReadInOutData* inOut,
@@ -179,6 +218,7 @@ Ret MscLoader::loadMscz(MasterScore* masterScore, const MscReader& mscReader, rw
 
             ReadInOutData partReadInData;
             partReadInData.links = inOut->links;
+            partReadInData.fileVoices = inOut->fileVoices;
 
             RetVal<IReaderPtr> reader = makeReader(masterScore->mscVersion(), ignoreVersionError);
             if (!reader.ret) {
@@ -207,6 +247,10 @@ Ret MscLoader::loadMscz(MasterScore* masterScore, const MscReader& mscReader, rw
 
             masterScore->addExcerpt(ex);
         }
+    }
+
+    if (ret && inOut->fileVoices < static_cast<int>(VOICES)) {
+        mapVoicesBeyondFile(masterScore, inOut->fileVoices);
     }
 
     // Compatibility conversions
@@ -240,6 +284,16 @@ Ret MscLoader::readMasterScore(MasterScore* score, XmlReader& e, bool ignoreVers
             const String version = e.attribute("version");
             const StringList sl = version.split(u'.');
             score->setMscVersion(sl[0].toInt() * 100 + sl[1].toInt());
+
+            ReadInOutData localOut;
+            if (!out) {
+                out = &localOut;
+            }
+            out->fileVoices = FILE_VOICES;
+            if (score->mscVersion() == Constants::MSC_VERSION_EIGHT_VOICES) {
+                score->setMscVersion(Constants::MSC_VERSION);
+                out->fileVoices = static_cast<int>(VOICES);
+            }
 
             RetVal<IReaderPtr> reader = makeReader(score->mscVersion(), ignoreVersionError);
             if (!reader.ret) {

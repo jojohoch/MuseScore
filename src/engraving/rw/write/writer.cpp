@@ -54,9 +54,12 @@ bool Writer::writeScore(Score* score, io::IODevice* device, rw::WriteInOutData* 
         ctx = inout->ctx;
     }
 
+    const bool eightVoices = score->usesVoicesBeyond(FILE_VOICES);
+    ctx.setFileVoices(eightVoices ? static_cast<int>(VOICES) : FILE_VOICES);
+
     xml.startDocument();
 
-    xml.startElement("museScore", { { "version", Constants::MSC_VERSION_STR } });
+    xml.startElement("museScore", { { "version", eightVoices ? Constants::MSC_VERSION_EIGHT_VOICES_STR : Constants::MSC_VERSION_STR } });
 
     if (!MScore::testMode) {
         xml.tag("programVersion", application()->version().toString());
@@ -123,9 +126,14 @@ void Writer::write(Score* score, XmlWriter& xml, WriteContext& ctx, compat::Writ
 
         const TracksMap& tracks = e->tracksMapping();
         if (!(tracks.size() == e->nstaves() * VOICES) && !tracks.empty()) {
+            const size_t fileVoices = static_cast<size_t>(ctx.fileVoices());
             for (auto it = tracks.begin(); it != tracks.end(); ++it) {
-                xml.tag("Tracklist", { { "sTrack", trackToFile(static_cast<int>(it->first)) },
-                            { "dstTrack", trackToFile(static_cast<int>(it->second)) } });
+                // The file has no room for voices beyond fileVoices; they are empty then
+                if (track2voice(it->first) >= fileVoices || track2voice(it->second) >= fileVoices) {
+                    continue;
+                }
+                xml.tag("Tracklist", { { "sTrack", trackToFile(static_cast<int>(it->first), ctx.fileVoices()) },
+                            { "dstTrack", trackToFile(static_cast<int>(it->second), ctx.fileVoices()) } });
             }
         }
 
@@ -277,9 +285,11 @@ void Writer::write(Score* score, XmlWriter& xml, WriteContext& ctx, compat::Writ
 }
 
 void Writer::writeSegments(XmlWriter& xml, SelectionFilter* filter, track_idx_t strack, track_idx_t etrack,
-                           Segment* sseg, Segment* eseg, bool writeSystemElements, bool forceTimeSig, Fraction& curTick)
+                           Segment* sseg, Segment* eseg, bool writeSystemElements, bool forceTimeSig, Fraction& curTick,
+                           int fileVoices)
 {
     WriteContext ctx(sseg->score());
+    ctx.setFileVoices(fileVoices);
     ctx.setClipboardmode(true);
     ctx.setFilter(*filter);
     ctx.setCurTrack(strack);

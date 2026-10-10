@@ -66,6 +66,9 @@ public:
     int trackDiff() const { return _trackDiff; }
     void setTrackDiff(int v) { _trackDiff = v; }
 
+    int fileVoices() const { return m_fileVoices; }
+    void setFileVoices(int v) { m_fileVoices = v; }
+
     bool clipboardmode() const { return _clipboardmode; }
     void setClipboardmode(bool v) { _clipboardmode = v; }
 
@@ -84,6 +87,7 @@ public:
                && _tickDiff == c._tickDiff
                && _curTrack == c._curTrack
                && _trackDiff == c._trackDiff
+               && m_fileVoices == c.m_fileVoices
                && _clipboardmode == c._clipboardmode
                && _filter == c._filter
                && _range == c._range;
@@ -99,6 +103,7 @@ private:
     Fraction _tickDiff   { 0, 1 };
     track_idx_t _curTrack = muse::nidx;
     int _trackDiff       { 0 };             // saved track is curTrack-trackDiff
+    int m_fileVoices = FILE_VOICES;
 
     bool _clipboardmode  { false };     // used to modify write() behaviour
 

@@ -544,7 +544,7 @@ bool TRead::readItemProperties(EngravingItem* item, XmlReader& e, ReadContext& c
     } else if (TRead::readProperty(item, tag, e, ctx, Pid::MIN_DISTANCE)) {
     } else if (TRead::readProperty(item, tag, e, ctx, Pid::AUTOPLACE)) {
     } else if (tag == "track") {
-        item->setTrack(trackFromFile(e.readInt()) + ctx.trackOffset());
+        item->setTrack(trackFromFile(e.readInt(), ctx.fileVoices()) + ctx.trackOffset());
     } else if (tag == "color") {
         item->setColor(e.readColor());
     } else if (tag == "visible") {
@@ -1875,7 +1875,7 @@ bool TRead::readProperties(Arpeggio* a, XmlReader& e, ReadContext& ctx)
     } else if (tag == "userLen2") {
         a->setUserLen2(e.readDouble() * a->spatium());
     } else if (tag == "span") {
-        a->setSpan(trackSpanFromFile(static_cast<int>(a->track()), e.readInt()));
+        a->setSpan(trackSpanFromFile(static_cast<int>(a->track()), e.readInt(), ctx.fileVoices()));
     } else if (tag == "play") {
         a->setPlayArpeggio(e.readBool());
     } else if (tag == "timeStretch") {
@@ -3310,7 +3310,7 @@ bool TRead::readProperties(Note* n, XmlReader& e, ReadContext& ctx)
         n->setTpc1(tpc);
         n->setTpc2(tpc);
     } else if (tag == "track") {          // for performance
-        n->setTrack(trackFromFile(e.readInt()));
+        n->setTrack(trackFromFile(e.readInt(), ctx.fileVoices()));
     } else if (tag == "Accidental") {
         Accidental* a = Factory::createAccidental(n);
         a->setTrack(n->track());

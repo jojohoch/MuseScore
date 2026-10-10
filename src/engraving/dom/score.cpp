@@ -4374,6 +4374,47 @@ std::list<Score*> Score::scoreList()
 }
 
 //---------------------------------------------------------
+//   usesVoicesBeyond
+//---------------------------------------------------------
+
+bool Score::usesVoicesBeyond(size_t voiceCount)
+{
+    auto isBeyond = [voiceCount](const EngravingItem* item) {
+        return item && item->track() != muse::nidx && item->voice() >= voiceCount;
+    };
+
+    for (Score* score : scoreList()) {
+        for (const MeasureBase* mb = score->first(); mb; mb = mb->next()) {
+            for (const EngravingItem* item : mb->el()) {
+                if (isBeyond(item)) {
+                    return true;
+                }
+            }
+        }
+        for (const Segment* s = score->firstSegment(SegmentType::All); s; s = s->next1()) {
+            for (const EngravingItem* item : s->elist()) {
+                if (isBeyond(item)) {
+                    return true;
+                }
+            }
+            for (const EngravingItem* item : s->annotations()) {
+                if (isBeyond(item)) {
+                    return true;
+                }
+            }
+        }
+        for (const auto& pair : score->spanner()) {
+            const Spanner* spanner = pair.second;
+            if (isBeyond(spanner) || (spanner->track2() != muse::nidx && track2voice(spanner->track2()) >= voiceCount)) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+//---------------------------------------------------------
 //   appendPart
 //---------------------------------------------------------
 
