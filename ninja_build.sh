@@ -187,7 +187,7 @@ case $TARGET in
         ;;
 
     appimage)
-        MUSESCORE_INSTALL_DIR=../MuseScore
+        MUSESCORE_INSTALL_DIR=../Octet
         MUSE_APP_INSTALL_SUFFIX="4portable${MUSE_APP_INSTALL_SUFFIX}" # e.g. "4portable" or "4portablenightly"
         MUSESCORE_NO_RPATH=ON
 
@@ -211,7 +211,7 @@ case $TARGET in
         ;;
 
     appimagedebug)
-        MUSESCORE_INSTALL_DIR=../MuseScore
+        MUSESCORE_INSTALL_DIR=../Octet
         MUSE_APP_INSTALL_SUFFIX="4portable${MUSE_APP_INSTALL_SUFFIX}" # e.g. "4portable" or "4portablenightly"
         MUSESCORE_NO_RPATH=ON
 
