@@ -12,16 +12,15 @@
     <id>org.musescore.MuseScore@MUSE_APP_INSTALL_SUFFIX@</id>
     <metadata_license>CC0-1.0</metadata_license><!-- License of this file -->
     <project_license>GPL-3.0-only</project_license>
-    <name>MuseScore</name>
-    <summary>Create, play and print beautiful sheet music</summary>
+    <name>Octet</name>
+    <summary>Music notation with eight voices per staff</summary>
     <description>
-        <p>MuseScore is cross-platform, multi-lingual, open source music notation software. It features an easy to use WYSIWYG editor with audio score playback for results that look and sound beautiful. It supports unlimited staves with up to four voices each, dynamics, articulations, lyrics, chords, lead sheet notation, import/export of MIDI and MusicXML, export to PDF and WAV, plus online score sharing.</p>
-        <p>MuseScore can upload scores directly to the score sharing site musescore.com. Program support is provided on musescore.org.</p>
-        <p>Features supported by MuseScore include:</p>
+        <p>Octet is a modified version of MuseScore Studio, the open source music notation software, with eight instead of four voices per staff. It is not a product of MuseScore Limited. Scores with up to four voices are saved exactly like MuseScore Studio saves them.</p>
+        <p>Features supported by Octet include:</p>
         <ul>
             <li>Unlimited score length</li>
             <li>Unlimited number of staves per system</li>
-            <li>Up to four independent voices per staff</li>
+            <li>Up to eight independent voices per staff</li>
             <li>Score creation wizard and templates</li>
             <li>Automatic part extraction and transposition</li>
             <li>Repeats, including segnos, codas, and measure repeats</li>
@@ -40,21 +39,15 @@
             <li>Additive time signatures</li>
             <li>User-defined score styles</li>
         </ul>
-        <p>Most elements in MuseScore are laid out automatically but can also be positioned manually. The capabilities of MuseScore can be extended via plugins, and the growing repository on musescore.org contains many plugins submitted by users.</p>
-        <p>MuseScore includes a set of sounds that reproduce common instruments (as defined by General MIDI) without taking up a lot of disk space or memory, but you can also substitute any SoundFont you prefer for a wider variety of sounds or for more realism.</p>
-        <p>MuseScore can import and export MIDI and MusicXML files, and it can also import from Capella and several other programs. MuseScore can export to PDF, PNG, and other graphic formats, to WAV and other audio formats, or to Lilypond for an alternative layout and print option.</p>
+        <p>Most elements are laid out automatically but can also be positioned manually. The capabilities can be extended via plugins.</p>
+        <p>Octet includes a set of sounds that reproduce common instruments (as defined by General MIDI) without taking up a lot of disk space or memory, but you can also substitute any SoundFont you prefer for a wider variety of sounds or for more realism.</p>
+        <p>Octet can import and export MIDI and MusicXML files, and it can also import from Capella and several other programs. It can export to PDF, PNG, and other graphic formats, and to WAV and other audio formats.</p>
     </description>
     <!-- <categories> in .desktop file -->
     <!-- <keywords> in .desktop file -->
-    <url type="homepage">https://musescore.org</url>
-    <url type="bugtracker">https://github.com/musescore/MuseScore/issues</url>
-    <url type="faq">https://musescore.org/en/faq</url>
-    <url type="help">https://handbook.musescore.org</url>
-    <url type="donation">https://musescore.org/en/donate</url>
-    <url type="translate">https://github.com/musescore/MuseScore/wiki/Help-translate-MuseScore</url>
-    <url type="contact">https://musescore.org/en/forum/6</url>
-    <url type="vcs-browser">https://github.com/musescore/MuseScore</url>
-    <url type="contribute">https://musescore.org/en/contribute</url>
+    <url type="homepage">https://github.com/jojohoch/MuseScore</url>
+    <url type="bugtracker">https://github.com/jojohoch/MuseScore/issues</url>
+    <url type="vcs-browser">https://github.com/jojohoch/MuseScore</url>
     <launchable type="desktop-id">org.musescore.MuseScore@MUSE_APP_INSTALL_SUFFIX@.desktop</launchable>
     <provides>
         <!-- <mediatype> in .desktop file as MimeType -->
@@ -69,39 +62,9 @@
         <control>touch</control>
         <internet>always</internet>
     </supports>
-    <developer id="org.musescore">
-        <name>MuseScore Limited</name>
+    <developer id="io.github.jojohoch">
+        <name>jojohoch, based on MuseScore Studio by MuseScore Limited and others</name>
     </developer>
-    <screenshots>
-        <screenshot type="default">
-            <caption>Start Center</caption>
-            <image>https://raw.githubusercontent.com/flathub/org.musescore.MuseScore/master/screenshots/01-start-center.png</image>
-        </screenshot>
-        <screenshot>
-            <caption>Main application window</caption>
-            <image>https://raw.githubusercontent.com/flathub/org.musescore.MuseScore/master/screenshots/02-main-window.png</image>
-        </screenshot>
-        <screenshot>
-            <caption>Note Inspector</caption>
-            <image>https://raw.githubusercontent.com/flathub/org.musescore.MuseScore/master/screenshots/03-inspector.png</image>
-        </screenshot>
-        <screenshot>
-            <caption>Score playback with Piano Keyboard</caption>
-            <image>https://raw.githubusercontent.com/flathub/org.musescore.MuseScore/master/screenshots/04-playback-piano.png</image>
-        </screenshot>
-        <screenshot>
-            <caption>Mixer and Play panels</caption>
-            <image>https://raw.githubusercontent.com/flathub/org.musescore.MuseScore/master/screenshots/05-panels.png</image>
-        </screenshot>
-        <screenshot>
-            <caption>Master Palette</caption>
-            <image>https://raw.githubusercontent.com/flathub/org.musescore.MuseScore/master/screenshots/06-master-palette.png</image>
-        </screenshot>
-        <screenshot>
-            <caption>New Score Wizard</caption>
-            <image>https://raw.githubusercontent.com/flathub/org.musescore.MuseScore/master/screenshots/07-new-score-wizard.png</image>
-        </screenshot>
-    </screenshots>
     <translation type="qt">mscore@MUSE_APP_INSTALL_SUFFIX@-@MUSE_APP_VERSION_MAJ_MIN@/locale/instruments</translation>
     <translation type="qt">mscore@MUSE_APP_INSTALL_SUFFIX@-@MUSE_APP_VERSION_MAJ_MIN@/locale/musescore</translation>
     <translation type="qt">mscore@MUSE_APP_INSTALL_SUFFIX@-@MUSE_APP_VERSION_MAJ_MIN@/locale/qt</translation>

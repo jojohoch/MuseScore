@@ -51,11 +51,13 @@ if [ -z "$BUILD_MODE" ]; then BUILD_MODE=$(cat $ARTIFACTS_DIR/env/build_mode.env
 
 MUSE_APP_BUILD_MODE=dev
 
+# Octet: the suffix names the executable, desktop file, icons and MIME data,
+# so that they differ from those of MuseScore Studio (no hyphens, see SetupAppImagePackaging.cmake)
 case "${BUILD_MODE}" in
-"devel")   MUSE_APP_BUILD_MODE=dev; SUFFIX=dev;;
-"nightly") MUSE_APP_BUILD_MODE=dev; SUFFIX=nightly;;
-"testing") MUSE_APP_BUILD_MODE=testing; SUFFIX=testing;;
-"stable")  MUSE_APP_BUILD_MODE=release; SUFFIX="";;
+"devel")   MUSE_APP_BUILD_MODE=dev; SUFFIX=octetdev;;
+"nightly") MUSE_APP_BUILD_MODE=dev; SUFFIX=octetnightly;;
+"testing") MUSE_APP_BUILD_MODE=testing; SUFFIX=octettesting;;
+"stable")  MUSE_APP_BUILD_MODE=release; SUFFIX=octet;;
 esac
 
 echo "MUSE_APP_BUILD_MODE: $MUSE_APP_BUILD_MODE"
