@@ -204,9 +204,8 @@ MenuItem* AppMenuModel::makeFileMenu()
         makeSeparator(),
         makeMenuItem("file-save"),
         makeMenuItem("file-save-as"),
-        makeMenuItem("file-save-to-cloud"),
+        // Octet: no saving to the cloud or publishing on MuseScore.com and Audio.com
         makeMenu(TranslatableString("appshell/menu/file", "Save o&ther"), makeSaveOtherSubItems()),
-        makeMenu(TranslatableString("appshell/menu/file", "Pu&blish online"), makePublishOnlineSubItems()),
         makeSeparator(),
         makeMenuItem("file-import-pdf"),
         makeMenuItem("file-import-audio-to-score"),
@@ -457,8 +456,8 @@ MenuItem* AppMenuModel::makeHelpMenu(bool addDiagnosticsSubMenu)
         helpItems << makeSeparator();
     }
 
+    // Octet: the handbook applies, but the MuseScore forum is no place to ask about Octet
     helpItems << makeMenuItem("online-handbook");
-    helpItems << makeMenuItem("ask-help");
     helpItems << makeSeparator();
 
     if (addDiagnosticsSubMenu) {
@@ -469,7 +468,6 @@ MenuItem* AppMenuModel::makeHelpMenu(bool addDiagnosticsSubMenu)
     helpItems << makeMenuItem("about-musescore", MenuItemRole::AboutRole);
     helpItems << makeMenuItem("about-qt", MenuItemRole::AboutQtRole);
     helpItems << makeMenuItem("about-musicxml");
-    helpItems << makeMenuItem("accessibility-statement");
     helpItems << makeSeparator();
 
 #if defined(Q_OS_WIN) || defined(Q_OS_MACOS)

@@ -134,13 +134,8 @@ RetVal<muse::io::path_t> OpenSaveProjectScenario::askLocalPath(INotationProjectP
 
 RetVal<SaveLocationType> OpenSaveProjectScenario::saveLocationType() const
 {
-    bool shouldAsk = configuration()->shouldAskSaveLocationType();
-    SaveLocationType lastUsed = configuration()->lastUsedSaveLocationType();
-    if (!shouldAsk && lastUsed != SaveLocationType::Undefined) {
-        return RetVal<SaveLocationType>::make_ok(lastUsed);
-    }
-
-    return askSaveLocationType();
+    // Octet offers no cloud saving on MuseScore.com: always save on this computer
+    return RetVal<SaveLocationType>::make_ok(SaveLocationType::Local);
 }
 
 RetVal<SaveLocationType> OpenSaveProjectScenario::askSaveLocationType() const

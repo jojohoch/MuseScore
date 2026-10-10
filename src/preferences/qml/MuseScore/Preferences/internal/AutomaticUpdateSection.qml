@@ -55,9 +55,7 @@ BaseSection {
     StyledTextLabel {
         width: parent.width
 
-        text: qsTrc("preferences", "Update checking requires network access. In order to protect your privacy, MuseScore Studio does not store any personal information. See our <a href=\"%1\">privacy policy</a> for more info.")
-              .arg(root.museScorePrivacyPolicyUrl)
-              .replace("\n", "<br>")
+        text: qsTrc("preferences", "Update checking requires network access. Octet does not store any personal information.")
 
         horizontalAlignment: Qt.AlignLeft
         wrapMode: Text.WordWrap

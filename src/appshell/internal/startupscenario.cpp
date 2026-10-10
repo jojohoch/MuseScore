@@ -297,22 +297,10 @@ void StartupScenario::showStartupDialogsIfNeed(StartupModeType modeType)
     });
 }
 
-bool StartupScenario::shouldShowWelcomeDialog(StartupModeType modeType) const
+bool StartupScenario::shouldShowWelcomeDialog(StartupModeType) const
 {
-    if (!configuration()->welcomeDialogShowOnStartup()) {
-        return false;
-    }
-
-    if (multiwindowsProvider()->windowCount() != 1) {
-        return false;
-    }
-
-    if (museSoundsUpdateScenario() && museSoundsUpdateScenario()->hasUpdate()) {
-        return false;
-    }
-
-    const Uri& startupUri = startupPageUri(modeType);
-    return interactive()->currentUri().val == startupUri;
+    // Octet: the welcome dialog promotes MuseSounds, MuseHub and MuseScore.com
+    return false;
 }
 
 void StartupScenario::checkAndShowMuseSamplerUpdateIfNeed()

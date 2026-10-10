@@ -61,21 +61,9 @@ Item {
 
         spacing: 0
 
-        AccountInfoButton {
-            Layout.fillWidth: true
-            Layout.preferredHeight: 60
-            Layout.topMargin: 20
-
-            navigation.name: "AccountInfo"
-            navigation.panel: navPanel
-            navigation.row: 1
-
-            checked: root.currentPageName === "account"
-            iconOnly: root.iconsOnly
-
-            onToggled: {
-                root.selected("account")
-            }
+        // Octet: no MuseScore.com account
+        Item {
+            Layout.preferredHeight: 20
         }
 
         RadioButtonGroup {
@@ -90,7 +78,7 @@ Item {
             model: [
                 { "name": "scores", "title": qsTrc("appshell", "Scores"), "iconCode": IconCode.MUSIC_NOTES },
                 { "name": "extensions", "title": qsTrc("appshell", "Plugins"), "iconCode":  IconCode.PLUGIN },
-                { "name": "musesounds", "title": qsTrc("appshell", "MuseSounds"), "iconCode": IconCode.PLAY },
+                // Octet: no MuseSounds page, which promotes MuseHub
                 { "name": "learn", "title": qsTrc("appshell", "Learn"), "iconCode":  IconCode.MORTAR_BOARD }
             ]
 

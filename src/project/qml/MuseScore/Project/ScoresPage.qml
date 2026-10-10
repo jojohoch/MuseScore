@@ -158,13 +158,7 @@ FocusScope {
                 navigation.column: 1
             }
 
-            StyledTabButton {
-                text: qsTrc("project", "My online scores")
-
-                navigation.name: "MyOnlineScores"
-                navigation.panel: navTabPanel
-                navigation.column: 2
-            }
+            // Octet: no "My online scores" on MuseScore.com
         }
 
         NavigationPanel {
@@ -180,7 +174,7 @@ FocusScope {
         FlatButton {
             id: refreshButton
 
-            visible: tabBar.currentIndex === 1
+            visible: false // Octet: refreshes the online scores only
 
             navigation.panel: viewButtonsNavPanel
             navigation.order: 1
@@ -238,7 +232,8 @@ FocusScope {
                 return null
             }
 
-            return [newAndRecentComp, onlineScoresComp][tabBar.currentIndex]
+            // Octet: only local scores, also if an online tab was selected before
+            return newAndRecentComp
         }
     }
 
@@ -322,22 +317,7 @@ FocusScope {
             accessible.name: qsTrc("project", "Scores actions")
         }
 
-        FlatButton {
-            anchors.left: parent.left
-            anchors.leftMargin: prv.sideMargin
-            anchors.verticalCenter: parent.verticalCenter
-
-            navigation.name: "ScoreManager"
-            navigation.panel: navBottomPanel
-            navigation.column: 1
-
-            minWidth: 216
-            text: qsTrc("project", "Score manager (online)")
-
-            onClicked: {
-                scoresPageModel.openScoreManager()
-            }
-        }
+        // Octet: no "Score manager (online)" on MuseScore.com
 
         Row {
             anchors.right : parent.right

@@ -33,7 +33,7 @@ FirstLaunchSetupModel::FirstLaunchSetupModel(QObject* parent)
 {
     m_pages = {
         Page { "ThemesPage.qml", "musescore://notation" },
-        Page { "PlaybackPage.qml", "musescore://notation" },
+        // Octet: no PlaybackPage, which promotes MuseSounds from MuseHub
         Page { "TutorialsPage.qml", "musescore://home?section=learn" }
     };
 }
