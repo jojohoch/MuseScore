@@ -68,7 +68,10 @@
         <Property Id="WixShellExecTarget" Value="[INSTALL_ROOT]bin\$(var.ExeName)" />
         <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
 
-        <Component Id="RegisterTypes" Directory="TARGETDIR" Guid="76707452-ee26-4f9a-9650-2cf2c70a6448">
+        <!-- Octet installs next to MuseScore Studio: it registers its own ProgIDs and component,
+             but leaves the shared file type keys and the musescore URL scheme to MuseScore Studio,
+             so that installing or removing Octet does not change them -->
+        <Component Id="RegisterTypes" Directory="TARGETDIR" Guid="1c4c42aa-2677-42e2-b695-dddaaa0db272">
             <!-- In order to work with Default Programs -->
             <?define CapabilitiesKey="SOFTWARE\$(var.ShortProdName)\Capabilities"?>
             <RegistryKey Root="$(var.RegistryRoot)" Key="$(var.CapabilitiesKey)">
@@ -80,22 +83,17 @@
 
                 <!-- File associations -->
                 <RegistryKey Key="FileAssociations">
-                    <RegistryValue Name=".mscz" Value="MuseScore.mscz.$(var.ProgIdSuffix)" Type="string" />
-                    <RegistryValue Name=".mscx" Value="MuseScore.mscx.$(var.ProgIdSuffix)" Type="string" />
-                    <RegistryValue Name=".mscs" Value="MuseScore.mscs.$(var.ProgIdSuffix)" Type="string" />
-                    <RegistryValue Name=".mscz~" Value="MuseScore.mscz.$(var.ProgIdSuffix)" Type="string" />
+                    <RegistryValue Name=".mscz" Value="Octet.mscz.$(var.ProgIdSuffix)" Type="string" />
+                    <RegistryValue Name=".mscx" Value="Octet.mscx.$(var.ProgIdSuffix)" Type="string" />
+                    <RegistryValue Name=".mscs" Value="Octet.mscs.$(var.ProgIdSuffix)" Type="string" />
+                    <RegistryValue Name=".mscz~" Value="Octet.mscz.$(var.ProgIdSuffix)" Type="string" />
                     <!-- TODO: Add other file types here too? -->
                 </RegistryKey>
 
                 <!-- MIME associations -->
                 <RegistryKey Key="MIMEAssociations">
-                    <RegistryValue Name="application/x-musescore" Value="MuseScore.mscz.$(var.ProgIdSuffix)" Type="string" />
-                    <RegistryValue Name="application/x-musescore+xml" Value="MuseScore.mscx.$(var.ProgIdSuffix)" Type="string" />
-                </RegistryKey>
-
-                <!-- URL associations -->
-                <RegistryKey Key="UrlAssociations">
-                    <RegistryValue Name="musescore" Value="MuseScore.Url.musescore.$(var.ProgIdSuffix)" Type="string" />
+                    <RegistryValue Name="application/x-musescore" Value="Octet.mscz.$(var.ProgIdSuffix)" Type="string" />
+                    <RegistryValue Name="application/x-musescore+xml" Value="Octet.mscx.$(var.ProgIdSuffix)" Type="string" />
                 </RegistryKey>
 
                 <!-- Open verb (TODO: this entry does not seem to be mentioned anywhere in the documentation, so does it make sense?) -->
@@ -152,87 +150,44 @@
             <!-- Register ProgIDs -->
             <!-- Instead of using WiX's/MSI's ProgId functionality, we use the registry directly for more control -->
             <!-- MSCZ -->
-            <RegistryKey Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\MuseScore.mscz.$(var.ProgIdSuffix)">
-                <RegistryValue Value="MuseScore File" Type="string" />
+            <RegistryKey Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\Octet.mscz.$(var.ProgIdSuffix)">
+                <RegistryValue Value="Octet File" Type="string" />
                 <RegistryValue Key="DefaultIcon" Value="[INSTALL_ROOT]bin\$(var.ExeName),1" Type="string" />
                 <RegistryValue Key="shell\open\command" Value="&quot;[INSTALL_ROOT]bin\$(var.ExeName)&quot; &quot;%1&quot;" Type="string" />
             </RegistryKey>
             <?ifndef MUSE_APP_IS_PRERELEASE?>
-            <RegistryValue Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\MuseScore.mscz\CurVer" Value="MuseScore.mscz.$(var.ProgIdSuffix)" Type="string" />
+            <RegistryValue Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\Octet.mscz\CurVer" Value="Octet.mscz.$(var.ProgIdSuffix)" Type="string" />
             <?endif?>
 
-            <RegistryKey Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\.mscz">
-                <?ifndef MUSE_APP_IS_PRERELEASE?>
-                <RegistryValue Value="MuseScore.mscz.$(var.ProgIdSuffix)" Type="string" />
-                <?endif?>
-                <RegistryValue Name="Content Type" Value="application/x-musescore" Type="string" />
-            </RegistryKey>
-
             <!-- MSCX -->
-            <RegistryKey Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\MuseScore.mscx.$(var.ProgIdSuffix)">
-                <RegistryValue Value="MuseScore Uncompressed File" Type="string" />
+            <RegistryKey Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\Octet.mscx.$(var.ProgIdSuffix)">
+                <RegistryValue Value="Octet Uncompressed File" Type="string" />
                 <RegistryValue Key="DefaultIcon" Value="[INSTALL_ROOT]bin\$(var.ExeName),2" Type="string" />
                 <RegistryValue Key="shell\open\command" Value="&quot;[INSTALL_ROOT]bin\$(var.ExeName)&quot; &quot;%1&quot;" Type="string" />
             </RegistryKey>
             <?ifndef MUSE_APP_IS_PRERELEASE?>
-            <RegistryValue Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\MuseScore.mscx\CurVer" Value="MuseScore.mscx.$(var.ProgIdSuffix)" Type="string" />
+            <RegistryValue Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\Octet.mscx\CurVer" Value="Octet.mscx.$(var.ProgIdSuffix)" Type="string" />
             <?endif?>
-
-            <RegistryKey Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\.mscx">
-                <?ifndef MUSE_APP_IS_PRERELEASE?>
-                <RegistryValue Value="MuseScore.mscx.$(var.ProgIdSuffix)" Type="string" />
-                <?endif?>
-                <RegistryValue Name="Content Type" Value="application/x-musescore+xml" Type="string" />
-            </RegistryKey>
 
             <!-- MSCS -->
-            <RegistryKey Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\MuseScore.mscs.$(var.ProgIdSuffix)">
-                <RegistryValue Value="MuseScore Uncompressed File" Type="string" />
+            <RegistryKey Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\Octet.mscs.$(var.ProgIdSuffix)">
+                <RegistryValue Value="Octet Uncompressed File" Type="string" />
                 <RegistryValue Key="DefaultIcon" Value="[INSTALL_ROOT]bin\$(var.ExeName),1" Type="string" />
                 <RegistryValue Key="shell\open\command" Value="&quot;[INSTALL_ROOT]bin\$(var.ExeName)&quot; &quot;%1&quot;" Type="string" />
             </RegistryKey>
             <?ifndef MUSE_APP_IS_PRERELEASE?>
-            <RegistryValue Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\MuseScore.mscs\CurVer" Value="MuseScore.mscs.$(var.ProgIdSuffix)" Type="string" />
+            <RegistryValue Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\Octet.mscs\CurVer" Value="Octet.mscs.$(var.ProgIdSuffix)" Type="string" />
             <?endif?>
-
-            <RegistryKey Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\.mscs">
-                <?ifndef MUSE_APP_IS_PRERELEASE?>
-                <RegistryValue Value="MuseScore.mscs.$(var.ProgIdSuffix)" Type="string" />
-                <?endif?>
-                <RegistryValue Name="Content Type" Value="application/x-musescore+xml" Type="string" />
-            </RegistryKey>
 
             <!-- MSCZ~ -->
-            <RegistryKey Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\MuseScore.mscz~.$(var.ProgIdSuffix)">
-                <RegistryValue Value="MuseScore Backup File" Type="string" />
+            <RegistryKey Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\Octet.mscz~.$(var.ProgIdSuffix)">
+                <RegistryValue Value="Octet Backup File" Type="string" />
                 <RegistryValue Key="DefaultIcon" Value="[INSTALL_ROOT]bin\$(var.ExeName),1" Type="string" />
                 <RegistryValue Key="shell\open\command" Value="&quot;[INSTALL_ROOT]bin\$(var.ExeName)&quot; &quot;%1&quot;" Type="string" />
             </RegistryKey>
             <?ifndef MUSE_APP_IS_PRERELEASE?>
-            <RegistryValue Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\MuseScore.mscz~\CurVer" Value="MuseScore.mscz~.$(var.ProgIdSuffix)" Type="string" />
+            <RegistryValue Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\Octet.mscz~\CurVer" Value="Octet.mscz~.$(var.ProgIdSuffix)" Type="string" />
             <?endif?>
-
-            <RegistryKey Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\.mscz~">
-                <?ifndef MUSE_APP_IS_PRERELEASE?>
-                <RegistryValue Value="MuseScore.mscz~.$(var.ProgIdSuffix)" Type="string" />
-                <?endif?>
-                <RegistryValue Name="Content Type" Value="application/x-musescore+xml" Type="string" />
-            </RegistryKey>
-
-            <!-- musescore URL scheme -->
-            <RegistryKey Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\MuseScore.Url.musescore.$(var.ProgIdSuffix)">
-                <RegistryValue Value="MuseScore URL" Type="string" />
-                <RegistryValue Key="DefaultIcon" Value="[INSTALL_ROOT]bin\$(var.ExeName),1" Type="string" />
-                <RegistryValue Key="shell\open\command" Value="&quot;[INSTALL_ROOT]bin\$(var.ExeName)&quot; &quot;%1&quot;" Type="string" />
-            </RegistryKey>
-            <?ifndef MUSE_APP_IS_PRERELEASE?>
-            <RegistryValue Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\MuseScore.Url.musescore\CurVer" Value="MuseScore.Url.musescore.$(var.ProgIdSuffix)" Type="string" />
-            <?endif?>
-
-            <RegistryKey Root="$(var.RegistryRoot)" Key="SOFTWARE\Classes\musescore">
-                <RegistryValue Name="URL Protocol" Value="" Type="string" />
-                <RegistryValue Value="URL:MuseScore URL" Type="string" />
-            </RegistryKey>
         </Component>
 
         <FeatureRef Id="ProductFeature">

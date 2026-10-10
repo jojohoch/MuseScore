@@ -61,7 +61,8 @@ endif()
 message(STATUS "[SetupWindowsPackaging.cmake] CPACK_WIX_PRODUCT_GUID: ${CPACK_WIX_PRODUCT_GUID}")
 
 if(NOT CPACK_WIX_UPGRADE_GUID)
-    set(CPACK_WIX_UPGRADE_GUID "11111111-1111-1111-1111-111111111111")
+    # Octet: own upgrade code, so its installer neither replaces nor is replaced by MuseScore Studio
+    set(CPACK_WIX_UPGRADE_GUID "d473b19a-fa4e-4261-bc72-24c870e37a5b")
 endif()
 
 message(STATUS "[SetupWindowsPackaging.cmake] CPACK_WIX_UPGRADE_GUID: ${CPACK_WIX_UPGRADE_GUID}")

@@ -49,7 +49,7 @@ SET "PATH=%JACK_DIR%;%PATH%"
 
 SET "MUSESCORE_BUILD_CONFIGURATION=app"
 IF %BUILD_WIN_PORTABLE% == ON (
-    SET INSTALL_DIR=../build.install/App/MuseScore
+    SET INSTALL_DIR=../build.install/App/Octet
     SET "MUSESCORE_BUILD_CONFIGURATION=app-portable"
 )
 

@@ -3,13 +3,12 @@ Type=PortableApps.comFormat
 Version=3.7 # Version of the PortableApps format, not of MuseScore
 
 [Details]
-Name=MuseScore Portable
-AppId=MuseScorePortable
-Publisher=MuseScore Limited and Others
-Homepage=PortableApps.com/MuseScorePortable
-Donate=musescore.org/donate
+Name=Octet Portable
+AppId=OctetPortable
+Publisher=jojohoch, based on MuseScore Studio by MuseScore Limited and Others
+Homepage=github.com/jojohoch/MuseScore
 Category=Music & Video
-Description=MuseScore Portable is the free MuseScore music composition & notation program packaged with a PortableApps.com Launcher as a portable app.
+Description=Octet is a modified version of MuseScore Studio with eight voices per staff, packaged with a PortableApps.com Launcher as a portable app.
 Language=Multilingual
 
 [License]
@@ -24,11 +23,10 @@ DisplayVersion=@MUSE_APP_VERSION@
 
 [Control]
 Icons=1
-Start=MuseScorePortable.exe
+Start=OctetPortable.exe
 
 [Associations]
 FileTypes=mscz, mscx, mscs
-Protocols=musescore
 
 [FileTypeIcons]
 mscz=custom
