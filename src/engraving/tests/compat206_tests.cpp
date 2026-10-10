@@ -22,7 +22,12 @@
 
 #include <gtest/gtest.h>
 
+#include "engraving/dom/chord.h"
+#include "engraving/dom/glissando.h"
 #include "engraving/dom/masterscore.h"
+#include "engraving/dom/measure.h"
+#include "engraving/dom/note.h"
+#include "engraving/dom/segment.h"
 
 #include "utils/scorerw.h"
 #include "utils/scorecomp.h"
@@ -105,4 +110,40 @@ TEST_F(Engraving_Compat206Tests, tuplets) {
 }
 TEST_F(Engraving_Compat206Tests, userStylesParts) {
     compat("userstylesparts");
+}
+
+//---------------------------------------------------------
+//   glissandoTab
+//   An old chord glissando becomes a straight line without
+//   text only if its own staff is a TAB staff
+//---------------------------------------------------------
+
+TEST_F(Engraving_Compat206Tests, glissandoTab) {
+    MasterScore* score = ScoreRW::readScore(COMPAT206_DATA_DIR + u"glissando_tab.mscx");
+    ASSERT_TRUE(score);
+
+    auto glissandoOnStaff = [score](staff_idx_t staffIdx) -> Glissando* {
+        Segment* seg = score->firstMeasure()->findSegment(SegmentType::ChordRest, Fraction(1, 2));
+        EngravingItem* item = seg ? seg->element(staff2track(staffIdx)) : nullptr;
+        if (!item || !item->isChord()) {
+            return nullptr;
+        }
+        for (Spanner* sp : toChord(item)->upNote()->spannerBack()) {
+            if (sp->isGlissando()) {
+                return toGlissando(sp);
+            }
+        }
+        return nullptr;
+    };
+
+    Glissando* pitched = glissandoOnStaff(1);
+    ASSERT_TRUE(pitched);
+    EXPECT_EQ(pitched->glissandoType(), GlissandoType::WAVY);
+
+    Glissando* tab = glissandoOnStaff(2);
+    ASSERT_TRUE(tab);
+    EXPECT_EQ(tab->glissandoType(), GlissandoType::STRAIGHT);
+    EXPECT_FALSE(tab->showText());
+
+    delete score;
 }
