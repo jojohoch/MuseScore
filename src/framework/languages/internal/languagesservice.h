@@ -82,6 +82,7 @@ private:
     Language m_placeholderLanguage;
 
     std::vector<QTranslator*> m_translators;
+    QTranslator* m_brandingTranslator = nullptr;
     QHash<QString, Progress> m_updateOperationsHash;
 
     bool m_inited = false;

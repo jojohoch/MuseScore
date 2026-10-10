@@ -101,9 +101,8 @@ if(BUILD_CONFIGURATION STREQUAL "APP-PORTABLE")
     set(WIN_PORTABLE ON)
 endif()
 
-if (WIN_PORTABLE)
-    set(MUSE_MODULE_UPDATE OFF)
-endif()
+# Octet: the update check would offer MuseScore Studio releases instead
+set(MUSE_MODULE_UPDATE OFF)
 if (OS_IS_FBSD)
     message(WARNING "Not building unsupported chrashpad client on FreeBSD")
     set(MUSE_MODULE_DIAGNOSTICS_CRASHPAD_CLIENT OFF)

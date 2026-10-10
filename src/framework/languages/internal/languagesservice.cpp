@@ -40,11 +40,58 @@
 #include "global/translation.h"
 #include "global/log.h"
 
+#include "muse_framework_config.h"
+
 using namespace Qt::Literals::StringLiterals;
 
 using namespace muse;
 using namespace muse::languages;
 using namespace muse::network;
+
+namespace {
+//! Octet: a modified MuseScore Studio must not call itself MuseScore Studio.
+//! This translator stands in front of the language's translators and names the app
+//! by its own title in every text, translated or not, without changing translation files.
+class BrandingTranslator : public QTranslator
+{
+public:
+    BrandingTranslator(const std::vector<QTranslator*>& translators, const QString& appTitle)
+        : m_translators(translators), m_appTitle(appTitle) {}
+
+    QString translate(const char* context, const char* sourceText, const char* disambiguation, int n) const override
+    {
+        for (const QTranslator* translator : m_translators) {
+            QString text = translator->translate(context, sourceText, disambiguation, n);
+            if (!text.isEmpty()) {
+                return brand(text);
+            }
+        }
+
+        QString source = QString::fromUtf8(sourceText);
+        if (source.contains(BRAND)) {
+            return brand(source);
+        }
+
+        return QString();
+    }
+
+    bool isEmpty() const override
+    {
+        return false;
+    }
+
+private:
+    static inline const QString BRAND = QStringLiteral("MuseScore Studio");
+
+    QString brand(QString text) const
+    {
+        return text.replace(BRAND, m_appTitle);
+    }
+
+    const std::vector<QTranslator*>& m_translators;
+    QString m_appTitle;
+};
+}
 
 static const QStringList LANGUAGE_RESOURCE_NAMES = {
     "musescore",
@@ -180,22 +227,31 @@ void LanguagesService::setCurrentLanguage(const QString& languageCode)
     }
 
     for (QTranslator* t : m_translators) {
-        qApp->removeTranslator(t);
         delete t;
     }
     m_translators.clear();
     m_translators.reserve(lang.files.size());
 
+    // The language's translators are used through the branding translator only
     for (const io::path_t& file : lang.files) {
         QTranslator* translator = new QTranslator();
         bool ok = translator->load(file.toQString());
         if (ok) {
-            qApp->installTranslator(translator);
             m_translators.push_back(translator);
         } else {
             LOGE() << "Error loading translator " << file.toQString();
             delete translator;
         }
+    }
+
+    if (!m_brandingTranslator) {
+#ifdef MUSE_APP_TITLE
+        const QString appTitle = QString::fromUtf8(MUSE_APP_TITLE);
+#else
+        const QString appTitle = u"MuseScore Studio"_s;
+#endif
+        m_brandingTranslator = new BrandingTranslator(m_translators, appTitle);
+        qApp->installTranslator(m_brandingTranslator);
     }
 
     QLocale locale(lang.code);

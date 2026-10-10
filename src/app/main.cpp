@@ -113,15 +113,15 @@ int main(int argc, char** argv)
 
     QGuiApplication::styleHints()->setMousePressAndHoldInterval(250);
 
-// Can't use MUSE_APP_TITLE until next major release, because this "application name" is used to determine
-// where user settings are stored. Changing it would result in all user settings being lost.
+// The application name determines where user settings and documents are stored. Octet keeps
+// them apart from MuseScore Studio, which would otherwise read settings for voices it does not have.
 #ifdef MUSE_APP_UNSTABLE
-    QCoreApplication::setApplicationName("MuseScore4Development");
+    QCoreApplication::setApplicationName("Octet4Development");
 #else
-    QCoreApplication::setApplicationName("MuseScore4");
+    QCoreApplication::setApplicationName("Octet4");
 #endif
-    QCoreApplication::setOrganizationName("MuseScore");
-    QCoreApplication::setOrganizationDomain("musescore.org");
+    QCoreApplication::setOrganizationName("Octet");
+    QCoreApplication::setOrganizationDomain("jojohoch.github.io");
     QCoreApplication::setApplicationVersion(MUSE_APP_VERSION);
 
 #if !defined(Q_OS_WIN) && !defined(Q_OS_DARWIN) && !defined(Q_OS_WASM)

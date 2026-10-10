@@ -111,27 +111,19 @@ StyledDialogView {
                 Layout.fillWidth: true
                 text: {
                     let museScoreUrl = aboutModel.museScoreUrl()
+                    let sourceUrl = "https://github.com/jojohoch/MuseScore"
 
+                    // The non-breaking space keeps the branding translator from renaming MuseScore Studio here
                     //: %1 will be a link to the MuseScore website
-                    let line1 = qsTrc("appshell/about", "Visit %1 for new versions and more information.")
+                    let line1 = qsTrc("appshell/about", "Octet is a modified version of MuseScore Studio (%1) with eight voices per staff.")
                                 .arg(`<a href="${museScoreUrl.url}">${museScoreUrl.displayName}</a>`)
 
-                    let line2 = qsTrc("appshell/about", "Get <a href=\"%1\">help</a> with the program or <a href=\"%2\">contribute</a> to its development.")
-                                .arg(aboutModel.museScoreForumUrl().url)
-                                .arg(aboutModel.museScoreContributionUrl().url)
+                    //: %1 will be a link to the source code repository
+                    let line2 = qsTrc("appshell/about", "Source code and new versions: %1")
+                                .arg(`<a href="${sourceUrl}">github.com/jojohoch/MuseScore</a>`)
 
                     return line1 + "<br>" + line2
                 }
-                wrapMode: Text.WordWrap
-                maximumLineCount: 3
-            }
-
-            StyledTextLabel {
-                Layout.fillWidth: true
-
-                text: qsTrc("appshell/about", "For privacy information, see our <a href=\"%1\">privacy policy</a>.")
-                      .arg(aboutModel.museScorePrivacyPolicyUrl().url)
-
                 wrapMode: Text.WordWrap
                 maximumLineCount: 3
             }
