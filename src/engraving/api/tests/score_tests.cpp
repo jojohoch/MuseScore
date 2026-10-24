@@ -1531,3 +1531,31 @@ TEST_F(Engraving_ApiScoreTests, setScoreOrderApi)
 
     delete domScore;
 }
+
+//---------------------------------------------------------
+//   beamPosAsList
+//   JavaScript can neither read nor build a std::pair,
+//   so plugins exchange beam positions as [left, right]
+//---------------------------------------------------------
+
+TEST_F(Engraving_ApiScoreTests, beamPosAsList)
+{
+    // [GIVEN] A user-modified beam
+    MasterScore* domScore = compat::ScoreAccess::createMasterScore(nullptr);
+
+    {
+        apiv1::Beam apiBeam(Factory::createBeam(domScore->dummy()->system()), apiv1::Ownership::PLUGIN);
+        apiBeam.setProperty("userModified", true);
+
+        // [WHEN] A plugin sets its position from a list
+        apiBeam.setProperty("beamPos", QVariantList { 4.0, 5.5 });
+
+        // [THEN] The position reads back as the same list
+        const QVariantList pos = apiBeam.property("beamPos").toList();
+        ASSERT_EQ(pos.size(), 2);
+        EXPECT_DOUBLE_EQ(pos.at(0).toDouble(), 4.0);
+        EXPECT_DOUBLE_EQ(pos.at(1).toDouble(), 5.5);
+    }
+
+    delete domScore;
+}

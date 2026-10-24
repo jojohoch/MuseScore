@@ -552,7 +552,8 @@ class EngravingItem : public apiv1::ScoreElement
     /// position has been modified by the user.
     ///\since MuseScore 4.6
     API_PROPERTY_T(bool, userModified,    USER_MODIFIED)
-    /// For beams and two-chord tremolos: Their position.
+    /// For beams and two-chord tremolos: Their position as [left, right],
+    /// in spatium units. Takes effect only if \ref userModified is true.
     API_PROPERTY(beamPos,                 BEAM_POS)
     /// For beams and two-chord tremolos: Whether they are forcibly horizontal.
     API_PROPERTY_T(bool, beamNoSlope,     BEAM_NO_SLOPE)

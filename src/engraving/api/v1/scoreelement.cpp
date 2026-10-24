@@ -122,6 +122,11 @@ QVariant ScoreElement::get(mu::engraving::Pid pid) const
         return val.toReal() / spatium();
     case P_TYPE::SPATIUM:
         return val.value<Spatium>().val();
+    case P_TYPE::PAIR_REAL: {
+        // std::pair is opaque to JavaScript, so hand it out as [first, second]
+        const PairF p = val.value<PairF>();
+        return QVariantList { p.first, p.second };
+    }
     default:
         break;
     }
@@ -209,6 +214,15 @@ void ScoreElement::set(mu::engraving::Pid pid, const QVariant& val)
 
         newValue = Align { alignHFromApiValue(apiValue), alignVFromApiValue(apiValue) };
     } break;
+    case P_TYPE::PAIR_REAL: {
+        const QVariantList list = val.toList();
+        if (list.size() != 2) {
+            LOGW() << "trying to assign value of wrong type to pair property, expected [first, second]";
+            return;
+        }
+        newValue = PairF(list.at(0).toDouble(), list.at(1).toDouble());
+    }
+    break;
 
     default:
         newValue = PropertyValue::fromQVariant(val, propertyType(pid));
